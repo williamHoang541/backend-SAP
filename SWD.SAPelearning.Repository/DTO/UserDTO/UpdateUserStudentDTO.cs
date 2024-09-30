@@ -1,6 +1,6 @@
 ﻿namespace SWD.SAPelearning.Repository.DTO.UserDTO
 {
-    public class UpdateUserStudent
+    public class UpdateUserStudentDTO
     {
         public string Email { get; set; }
         public string Fullname { get; set; }

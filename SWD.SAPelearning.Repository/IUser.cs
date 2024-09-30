@@ -10,7 +10,10 @@ namespace SWD.SAPelearning.Repository
         Task<string> Login(LoginDTO request);
         Task<Usertb> Registration(RegisterDTO request);
         Task<Usertb> CreateInstructor(CreateUserInstructorDTO request);
-        Task<Usertb> UpdateStudent(string id, UpdateUserStudent user);
+        Task<Usertb> UpdateStudent(string id, UpdateUserStudentDTO user);
+        Task<List<Usertb>> SearchByName(string name);
+        Task<Usertb> getUserByID(SearchUserIdDTO id);
+        Task<Usertb> UpdateStatusIsOnline(string userID);
         Task<bool> Delete(RemoveDTO id);
     }
 }

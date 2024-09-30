@@ -104,7 +104,7 @@ namespace SWD.SAPelearning.API.Controllers
         [AllowAnonymous]
         [Route("update-student")]
         [HttpPost]
-        public async Task<IActionResult> UpdateStudent(string id, UpdateUserStudent user)
+        public async Task<IActionResult> UpdateStudent(string id, UpdateUserStudentDTO user)
         {
             try
             {
@@ -113,6 +113,75 @@ namespace SWD.SAPelearning.API.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// search-by-name
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("search-by-name")]
+        [HttpGet]
+        public async Task<IActionResult> SearchByName(string user)
+        {
+            try
+            {
+                var a = await this.user.SearchByName(user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// get-by-id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("get-by-id")]
+        [HttpPost]
+        public async Task<IActionResult> GetUserById(SearchUserIdDTO id)
+        {
+            try
+            {
+                var user = await this.user.getUserByID(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// update-status-is-online
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("update-status-is-online")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatusIsOnline(string id)
+        {
+            try
+            {
+                var a = await this.user.UpdateStatusIsOnline(id);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

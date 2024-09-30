@@ -171,7 +171,7 @@ namespace SAPelearning_bakend.Repositories.Services
             }
         }
 
-        public async Task<Usertb> UpdateStudent(string id, UpdateUserStudent user)
+        public async Task<Usertb> UpdateStudent(string id, UpdateUserStudentDTO user)
         {
             try
             {
@@ -222,7 +222,63 @@ namespace SAPelearning_bakend.Repositories.Services
             }
         }
 
+        public async Task<List<Usertb>> SearchByName(string name)
+        {
+            try
+            {
+                var list = await this.context.Usertbs.Where(x => x.Username.Contains(name)).ToListAsync();
+                if (list != null) return list;
+                throw new Exception("Not Found");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
 
+        public async Task<Usertb> getUserByID(SearchUserIdDTO id)
+        {
+            try
+            {
+                var search = await this.context.Usertbs.Where(x => x.Userid.Equals(id.userID))
+                                                                .FirstOrDefaultAsync();
+                return search;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+        public async Task<Usertb> UpdateStatusIsOnline(string userID)
+        {
+            try
+            {
+                // Find the user by userID
+                var user = await this.context.Usertbs.Where(a => a.Userid == userID).FirstOrDefaultAsync();
+
+                if (user == null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                // Toggle the IsOnline status
+                user.IsOnline = !user.IsOnline;
+
+                // Update the user's record
+                this.context.Usertbs.Update(user);
+                await this.context.SaveChangesAsync();
+
+                return user;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
 
         public async Task<bool> Delete(RemoveDTO id)
         {

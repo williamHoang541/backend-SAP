@@ -1,4 +1,5 @@
-﻿using SWD.SAPelearning.Repository.DTO.UserDTO;
+﻿using SAPelearning_bakend.DTO.UserDTO;
+using SWD.SAPelearning.Repository.DTO.UserDTO;
 using SWD.SAPelearning.Repository.Models;
 
 namespace SWD.SAPelearning.Repository
@@ -8,6 +9,8 @@ namespace SWD.SAPelearning.Repository
         Task<List<Usertb>> GetAllUsers();
         Task<string> Login(LoginDTO request);
         Task<Usertb> Registration(RegisterDTO request);
+        Task<Usertb> CreateInstructor(CreateUserInstructorDTO request);
+        Task<Usertb> UpdateStudent(string id, UpdateUserStudent user);
         Task<bool> Delete(RemoveDTO id);
     }
 }

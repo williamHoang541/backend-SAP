@@ -12,3 +12,4 @@ D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Repository\obj\Debug\net8.0\refint\
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Repository\obj\Debug\net8.0\SWD.SAPelearning.Repository.pdb
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Repository\obj\Debug\net8.0\SWD.SAPelearning.Repository.genruntimeconfig.cache
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Repository\obj\Debug\net8.0\ref\SWD.SAPelearning.Repository.dll
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Repository\obj\Debug\net8.0\SWD.SAPelearning.Repository.sourcelink.json

@@ -101,3 +101,4 @@ D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\refint\SWD.SAP
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.pdb
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.genruntimeconfig.cache
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\ref\SWD.SAPelearning.API.dll
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.sourcelink.json

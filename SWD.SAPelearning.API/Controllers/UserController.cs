@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SAPelearning_bakend.DTO.UserDTO;
 using SWD.SAPelearning.Repository;
 using SWD.SAPelearning.Repository.DTO.UserDTO;
 
@@ -65,6 +66,49 @@ namespace SWD.SAPelearning.API.Controllers
             try
             {
                 var a = await this.user.Registration(user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// create-instructor
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("create-instructor")]
+        [HttpPost]
+        public async Task<IActionResult> CreateInstructor(CreateUserInstructorDTO user)
+        {
+            try
+            {
+                var a = await this.user.CreateInstructor(user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// update-student
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("update-student")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateStudent(string id, UpdateUserStudent user)
+        {
+            try
+            {
+                var a = await this.user.UpdateStudent(id,user);
                 return Ok(a);
             }
             catch (Exception ex)

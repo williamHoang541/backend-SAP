@@ -13,3 +13,4 @@ D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Service\obj\Debug\net8.0\SWD.SAPele
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Service\obj\Debug\net8.0\refint\SWD.SAPelearning.Service.dll
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Service\obj\Debug\net8.0\SWD.SAPelearning.Service.pdb
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Service\obj\Debug\net8.0\ref\SWD.SAPelearning.Service.dll
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.Service\obj\Debug\net8.0\SWD.SAPelearning.Service.sourcelink.json

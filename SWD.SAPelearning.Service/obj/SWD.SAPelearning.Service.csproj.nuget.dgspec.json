@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj": {}
+    "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj": {}
   },
   "projects": {
-    "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj": {
+    "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj",
         "projectName": "SWD.SAPelearning.Repository",
-        "projectPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj",
-        "packagesPath": "C:\\Users\\lhh54\\.nuget\\packages\\",
-        "outputPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lhh54\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -87,25 +82,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj": {
+    "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj",
         "projectName": "SWD.SAPelearning.Service",
-        "projectPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj",
-        "packagesPath": "C:\\Users\\lhh54\\.nuget\\packages\\",
-        "outputPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lhh54\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -113,15 +104,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj": {
-                "projectPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj"
+              "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj": {
+                "projectPath": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj"
               }
             }
           }
@@ -166,7 +156,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

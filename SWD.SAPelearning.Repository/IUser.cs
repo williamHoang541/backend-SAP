@@ -14,6 +14,6 @@ namespace SWD.SAPelearning.Repository
         Task<List<Usertb>> SearchByName(string name);
         Task<Usertb> getUserByID(SearchUserIdDTO id);
         Task<Usertb> UpdateStatusIsOnline(string userID);
-        Task<bool> Delete(RemoveDTO id);
+        Task<bool> Delete(RemoveUDTO id);
     }
 }

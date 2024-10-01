@@ -13,7 +13,6 @@ namespace SWD.SAPelearning.Repository.Models
         public string AttemptId { get; set; } = null!;
         public string? Userid { get; set; }
         public DateTime AttemptDate { get; set; }
-        public double? Score { get; set; }
         public bool? Status { get; set; }
 
         public virtual Usertb? User { get; set; }

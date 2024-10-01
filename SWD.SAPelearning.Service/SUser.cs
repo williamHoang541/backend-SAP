@@ -66,16 +66,23 @@ namespace SAPelearning_bakend.Repositories.Services
         {
             try
             {
+                // Retrieve the user based on the username
                 var user = await this.context.Usertbs.Where(x => x.Username.Equals(request.Username))
-                                                   .Include(y => y.Roles)
-                                                   .FirstOrDefaultAsync();
+                                                     .Include(y => y.Roles)
+                                                     .FirstOrDefaultAsync();
+
                 if (user == null)
                     throw new Exception("USER IS NOT FOUND");
+
+                // Check if the password is correct
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                     throw new Exception("INVALID PASSWORD");
-                //if (!user.Status)
-                //    throw new Exception("ACCOUNT WAS BANNED OR DELETED");
+
+                user.IsOnline = true;
+                this.context.Usertbs.Update(user);
+                await this.context.SaveChangesAsync();
                 var token = CreateToken(user);
+
                 return token;
             }
             catch (Exception ex)
@@ -83,6 +90,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"{ex.Message}");
             }
         }
+
 
         public async Task<Usertb> Registration(RegisterDTO request)
         {
@@ -153,7 +161,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     instructor.Education = request.Education;
                     instructor.Phonenumber = request.PhoneNumber;
                     instructor.Gender = request.Gender;
-                    instructor.Roleid = "2"; // Assuming '2' is the role id for Instructor
+                    instructor.Roleid = "2"; 
                     instructor.LastLogin = DateTime.Now;
                     instructor.IsOnline = false;
 
@@ -280,7 +288,7 @@ namespace SAPelearning_bakend.Repositories.Services
 
         }
 
-        public async Task<bool> Delete(RemoveDTO id)
+        public async Task<bool> Delete(RemoveUDTO id)
         {
             try
             {

@@ -103,7 +103,7 @@ namespace SWD.SAPelearning.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [Route("update-student")]
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> UpdateStudent(string id, UpdateUserStudentDTO user)
         {
             try
@@ -171,7 +171,7 @@ namespace SWD.SAPelearning.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [Route("update-status-is-online")]
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> UpdateStatusIsOnline(string id)
         {
             try
@@ -194,7 +194,7 @@ namespace SWD.SAPelearning.API.Controllers
         [AllowAnonymous]
         [Route("delete")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(RemoveDTO user)
+        public async Task<IActionResult> Delete(RemoveUDTO user)
         {
             try
             {

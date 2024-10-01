@@ -12,8 +12,8 @@ namespace SWD.SAPelearning.Repository.Models
             Enrollments = new HashSet<Enrollment>();
         }
 
-        public string CourseId { get; set; } = null!;
-        public string? Userid { get; set; }
+        public string Id { get; set; } = null!;
+        public string? UserId { get; set; }
         public string? CertificateId { get; set; }
         public string? CourseName { get; set; }
         public DateTime? StartTime { get; set; }
@@ -21,7 +21,7 @@ namespace SWD.SAPelearning.Repository.Models
         public string? Mode { get; set; }
         public double? Price { get; set; }
         public int? TotalStudent { get; set; }
-        public DateTime? EnrollmentDate { get; set; }
+        public DateTime? Endregisterdate { get; set; }
         public string? Location { get; set; }
         public string? Status { get; set; }
 

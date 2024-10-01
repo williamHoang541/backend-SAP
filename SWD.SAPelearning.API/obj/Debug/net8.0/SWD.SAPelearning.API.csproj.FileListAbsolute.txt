@@ -30,13 +30,6 @@ C:\Users\lhh54\source\repos\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\
 C:\Users\lhh54\source\repos\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.pdb
 C:\Users\lhh54\source\repos\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.genruntimeconfig.cache
 C:\Users\lhh54\source\repos\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\ref\SWD.SAPelearning.API.dll
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.csproj.AssemblyReference.cache
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.AssemblyInfoInputs.cache
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.AssemblyInfo.cs
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.csproj.CoreCompileInputs.cache
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.MvcApplicationPartsAssemblyInfo.cs
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.MvcApplicationPartsAssemblyInfo.cache
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\appsettings.Development.json
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\appsettings.json
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\SWD.SAPelearning.API.exe
@@ -87,6 +80,14 @@ D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\SWD.SAPelearni
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\SWD.SAPelearning.Service.dll
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\SWD.SAPelearning.Repository.pdb
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\bin\Debug\net8.0\SWD.SAPelearning.Service.pdb
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.csproj.AssemblyReference.cache
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.AssemblyInfoInputs.cache
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.AssemblyInfo.cs
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.csproj.CoreCompileInputs.cache
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.MvcApplicationPartsAssemblyInfo.cs
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.MvcApplicationPartsAssemblyInfo.cache
+D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.sourcelink.json
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\staticwebassets.build.json
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\staticwebassets.development.json
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\staticwebassets\msbuild.SWD.SAPelearning.API.Microsoft.AspNetCore.StaticWebAssets.props
@@ -101,4 +102,3 @@ D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\refint\SWD.SAP
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.pdb
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.genruntimeconfig.cache
 D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\ref\SWD.SAPelearning.API.dll
-D:\swd\SWD.SAPelearning.API\SWD.SAPelearning.API\obj\Debug\net8.0\SWD.SAPelearning.API.sourcelink.json

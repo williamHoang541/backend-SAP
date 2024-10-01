@@ -10,11 +10,10 @@ namespace SWD.SAPelearning.Repository.Models
             CertificateTestAttempts = new HashSet<CertificateTestAttempt>();
             Courses = new HashSet<Course>();
             Enrollments = new HashSet<Enrollment>();
-            Roles = new HashSet<Role>();
         }
 
-        public string Userid { get; set; } = null!;
-        public string? Roleid { get; set; }
+        public string Id { get; set; } = null!;
+        public string? Rolename { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
         public string? Email { get; set; }
@@ -29,7 +28,5 @@ namespace SWD.SAPelearning.Repository.Models
         public virtual ICollection<CertificateTestAttempt> CertificateTestAttempts { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; }
-
-        public virtual ICollection<Role> Roles { get; set; }
     }
 }

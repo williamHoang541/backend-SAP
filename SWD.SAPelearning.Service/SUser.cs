@@ -43,8 +43,8 @@ namespace SAPelearning_bakend.Repositories.Services
 
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, user.Roleid),
-                new Claim("userid", user.Userid),
+                new Claim(ClaimTypes.Role, user.Rolename),
+                new Claim("userid", user.Id),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
@@ -68,7 +68,7 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Retrieve the user based on the username
                 var user = await this.context.Usertbs.Where(x => x.Username.Equals(request.Username))
-                                                     .Include(y => y.Roles)
+                                                     .Include(y => y.Rolename)
                                                      .FirstOrDefaultAsync();
 
                 if (user == null)
@@ -106,10 +106,10 @@ namespace SAPelearning_bakend.Repositories.Services
                             throw new Exception("UserName has been existted!");
                         }
                     }
-                    r.Userid = "S" + Guid.NewGuid().ToString().Substring(0, 5);
+                    r.Id = "S" + Guid.NewGuid().ToString().Substring(0, 5);
                     r.Username = request.Username;
                     r.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
-                    r.Roleid = "3";
+                    r.Rolename = "student";
                     r.LastLogin= DateTime.Now;
                     r.IsOnline = true;
                     await this.context.Usertbs.AddAsync(r);
@@ -153,7 +153,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     }
 
                     // Create unique UserId for Instructor
-                    instructor.Userid = "I" + Guid.NewGuid().ToString().Substring(0, 5);
+                    instructor.Id = "I" + Guid.NewGuid().ToString().Substring(0, 5);
                     instructor.Username = request.Username;
                     instructor.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
                     instructor.Email = request.Email;
@@ -161,7 +161,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     instructor.Education = request.Education;
                     instructor.Phonenumber = request.PhoneNumber;
                     instructor.Gender = request.Gender;
-                    instructor.Roleid = "2"; 
+                    instructor.Rolename = "instructor"; 
                     instructor.LastLogin = DateTime.Now;
                     instructor.IsOnline = false;
 
@@ -183,7 +183,7 @@ namespace SAPelearning_bakend.Repositories.Services
         {
             try
             {
-                var existingUser = await context.Usertbs.FirstOrDefaultAsync(x => x.Userid == id);
+                var existingUser = await context.Usertbs.FirstOrDefaultAsync(x => x.Id == id);
                 if (existingUser == null)
                     throw new Exception("USER NOT FOUND");
 
@@ -197,7 +197,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     }
 
                     // Check if email already exists in the system (excluding the current user)
-                    var emailExists = await context.Usertbs.AnyAsync(x => x.Email == user.Email && x.Userid != id);
+                    var emailExists = await context.Usertbs.AnyAsync(x => x.Email == user.Email && x.Id != id);
                     if (emailExists)
                     {
                         throw new Exception("Email already exists.");
@@ -248,7 +248,7 @@ namespace SAPelearning_bakend.Repositories.Services
         {
             try
             {
-                var search = await this.context.Usertbs.Where(x => x.Userid.Equals(id.userID))
+                var search = await this.context.Usertbs.Where(x => x.Id.Equals(id.userID))
                                                                 .FirstOrDefaultAsync();
                 return search;
             }
@@ -264,7 +264,7 @@ namespace SAPelearning_bakend.Repositories.Services
             try
             {
                 // Find the user by userID
-                var user = await this.context.Usertbs.Where(a => a.Userid == userID).FirstOrDefaultAsync();
+                var user = await this.context.Usertbs.Where(a => a.Id == userID).FirstOrDefaultAsync();
 
                 if (user == null)
                 {
@@ -288,13 +288,45 @@ namespace SAPelearning_bakend.Repositories.Services
 
         }
 
+        public async Task<List<Usertb>> GetInstructorsByPrefix(string userIdPrefix)
+        {
+            // Ensure the prefix is provided
+            if (string.IsNullOrEmpty(userIdPrefix))
+            {
+                throw new ArgumentException("User ID prefix cannot be null or empty.");
+            }
+
+            // Retrieve all instructors whose IDs start with the specified prefix
+            var instructors = await this.context.Usertbs
+                .Where(u => u.Id.StartsWith(userIdPrefix) && u.Rolename == "instructor") // Use '==' for comparison
+                .ToListAsync();
+
+            return instructors;
+        }
+
+        public async Task<List<Usertb>> GetStudentsByPrefix(string userIdPrefix)
+        {
+            // Ensure the prefix is provided
+            if (string.IsNullOrEmpty(userIdPrefix))
+            {
+                throw new ArgumentException("User ID prefix cannot be null or empty.");
+            }
+
+            // Retrieve all students whose IDs start with the specified prefix
+            var students = await this.context.Usertbs
+                .Where(u => u.Id.StartsWith(userIdPrefix) && u.Rolename == "student") // Use '==' for comparison
+                .ToListAsync();
+
+            return students;
+        }
+
         public async Task<bool> Delete(RemoveUDTO id)
         {
             try
             {
                 if (id != null)
                 {
-                    var obj = await this.context.Usertbs.Where(x => x.Userid.Equals(id.UserID)).FirstOrDefaultAsync();
+                    var obj = await this.context.Usertbs.Where(x => x.Id.Equals(id.UserID)).FirstOrDefaultAsync();
                     this.context.Usertbs.Remove(obj);
                     await this.context.SaveChangesAsync();
                     return true;

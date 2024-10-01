@@ -10,8 +10,8 @@ namespace SWD.SAPelearning.Repository.Models
             Payments = new HashSet<Payment>();
         }
 
-        public string EnrollmentId { get; set; } = null!;
-        public string? Userid { get; set; }
+        public string Id { get; set; } = null!;
+        public string? UserId { get; set; }
         public string? CourseId { get; set; }
         public string? PaymentId { get; set; }
         public DateTime? EnrollmentDate { get; set; }

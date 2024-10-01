@@ -5,7 +5,7 @@ namespace SWD.SAPelearning.Repository.Models
 {
     public partial class CourseMaterial
     {
-        public string MaterialId { get; set; } = null!;
+        public string Id { get; set; } = null!;
         public string? CourseId { get; set; }
         public string? MaterialName { get; set; }
         public string? FileMaterial { get; set; }

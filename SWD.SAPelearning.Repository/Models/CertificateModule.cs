@@ -10,7 +10,7 @@ namespace SWD.SAPelearning.Repository.Models
             Certificates = new HashSet<Certificate>();
         }
 
-        public string ModuleId { get; set; } = null!;
+        public string Id { get; set; } = null!;
         public string? ModuleName { get; set; }
         public string? ModuleDescription { get; set; }
         public string? Status { get; set; }

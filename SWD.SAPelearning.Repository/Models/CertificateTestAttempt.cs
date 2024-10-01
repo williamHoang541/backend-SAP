@@ -10,8 +10,8 @@ namespace SWD.SAPelearning.Repository.Models
             CertificateSampletests = new HashSet<CertificateSampletest>();
         }
 
-        public string AttemptId { get; set; } = null!;
-        public string? Userid { get; set; }
+        public string Id { get; set; } = null!;
+        public string? UserId { get; set; }
         public DateTime AttemptDate { get; set; }
         public bool? Status { get; set; }
 

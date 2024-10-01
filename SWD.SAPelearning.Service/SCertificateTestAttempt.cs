@@ -40,8 +40,8 @@ namespace SAPelearning_bakend.Repositories.Services
                 // Create a new attempt
                 var attempt = new CertificateTestAttempt
                 {
-                    AttemptId = "CA" + Guid.NewGuid().ToString().Substring(0, 5),
-                    Userid = userId,
+                    Id = "CA" + Guid.NewGuid().ToString().Substring(0, 5),
+                    UserId = userId,
                     AttemptDate = DateTime.Now,
                     Status = true // Set status to true as per your requirements
                 };
@@ -66,7 +66,7 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Find the latest attempt for the given user ID
                 var attempt = await this.context.CertificateTestAttempts
-                    .Where(a => a.Userid == userId) 
+                    .Where(a => a.Id == userId) 
                     .OrderByDescending(a => a.AttemptDate) 
                     .FirstOrDefaultAsync();
 
@@ -96,7 +96,7 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Find the attempt by attemptId
                 var attempt = await this.context.CertificateTestAttempts
-                    .Where(a => a.AttemptId == attemptId)
+                    .Where(a => a.Id == attemptId)
                     .FirstOrDefaultAsync();
 
                 if (attempt == null)
@@ -125,7 +125,7 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Count the number of attempts for the given user ID
                 var count = await this.context.CertificateTestAttempts
-                    .CountAsync(a => a.Userid == userId);
+                    .CountAsync(a => a.UserId == userId);
 
                 return count; // Return the count
             }
@@ -143,7 +143,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 {
                     // Find the attempt by Attempt ID (use attemptId.AttemptId)
                     var attempt = await this.context.CertificateTestAttempts
-                        .Where(x => x.AttemptId.Equals(attemptId.AttemptID)) // Access AttemptId property
+                        .Where(x => x.Id.Equals(attemptId.AttemptID)) // Access AttemptId property
                         .FirstOrDefaultAsync();
 
                     if (attempt != null) // Check if the attempt exists

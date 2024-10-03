@@ -7,23 +7,23 @@ namespace SWD.SAPelearning.Repository.Models
     {
         public Certificate()
         {
-            CertificateQuestions = new HashSet<CertificateQuestion>();
-            CertificateSampletests = new HashSet<CertificateSampletest>();
+            CertificateSampleTests = new HashSet<CertificateSampleTest>();
             Courses = new HashSet<Course>();
-            Modules = new HashSet<CertificateModule>();
+            TopicAreas = new HashSet<TopicArea>();
+            Modules = new HashSet<SapModule>();
         }
 
-        public string Id { get; set; } = null!;
-        public string? CertificateName { get; set; }
+        public int Id { get; set; }
+        public string CertificateName { get; set; } = null!;
         public string? Description { get; set; }
         public string? Level { get; set; }
         public string? Environment { get; set; }
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
 
-        public virtual ICollection<CertificateQuestion> CertificateQuestions { get; set; }
-        public virtual ICollection<CertificateSampletest> CertificateSampletests { get; set; }
+        public virtual ICollection<CertificateSampleTest> CertificateSampleTests { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<TopicArea> TopicAreas { get; set; }
 
-        public virtual ICollection<CertificateModule> Modules { get; set; }
+        public virtual ICollection<SapModule> Modules { get; set; }
     }
 }

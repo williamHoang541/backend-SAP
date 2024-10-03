@@ -17,16 +17,18 @@ namespace SWD.SAPelearning.Repository.Models
         }
 
         public virtual DbSet<Certificate> Certificates { get; set; } = null!;
-        public virtual DbSet<CertificateModule> CertificateModules { get; set; } = null!;
         public virtual DbSet<CertificateQuestion> CertificateQuestions { get; set; } = null!;
-        public virtual DbSet<CertificateSampletest> CertificateSampletests { get; set; } = null!;
+        public virtual DbSet<CertificateSampleTest> CertificateSampleTests { get; set; } = null!;
         public virtual DbSet<CertificateTestAttempt> CertificateTestAttempts { get; set; } = null!;
         public virtual DbSet<CertificateTestQuestion> CertificateTestQuestions { get; set; } = null!;
         public virtual DbSet<Course> Courses { get; set; } = null!;
         public virtual DbSet<CourseMaterial> CourseMaterials { get; set; } = null!;
         public virtual DbSet<CourseSession> CourseSessions { get; set; } = null!;
         public virtual DbSet<Enrollment> Enrollments { get; set; } = null!;
+        public virtual DbSet<Instructor> Instructors { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
+        public virtual DbSet<SapModule> SapModules { get; set; } = null!;
+        public virtual DbSet<TopicArea> TopicAreas { get; set; } = null!;
         public virtual DbSet<Usertb> Usertbs { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +36,7 @@ namespace SWD.SAPelearning.Repository.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=MSI;Database=SAPelearning;User Id=sa;Password=12345;");
+                optionsBuilder.UseSqlServer("Server=MSI;uid=sa;pwd=12345;database=SAPelearning;TrustServerCertificate=True");
             }
         }
 
@@ -44,12 +46,9 @@ namespace SWD.SAPelearning.Repository.Models
             {
                 entity.ToTable("Certificate");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
-
                 entity.Property(e => e.CertificateName)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("Certificate_name");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(500)
@@ -66,141 +65,96 @@ namespace SWD.SAPelearning.Repository.Models
                 entity.HasMany(d => d.Modules)
                     .WithMany(p => p.Certificates)
                     .UsingEntity<Dictionary<string, object>>(
-                        "SapModule",
-                        l => l.HasOne<CertificateModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__SAP_Modul__Modul__5BE2A6F2"),
-                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__SAP_Modul__Certi__5AEE82B9"),
+                        "CertificateModule",
+                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Module"),
+                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Certificate"),
                         j =>
                         {
-                            j.HasKey("CertificateId", "ModuleId").HasName("PK__SAP_Modu__D94FE0BB3E49DBA3");
+                            j.HasKey("CertificateId", "ModuleId");
 
-                            j.ToTable("SAP_Module");
-
-                            j.IndexerProperty<string>("CertificateId").HasMaxLength(50);
-
-                            j.IndexerProperty<string>("ModuleId").HasMaxLength(50);
+                            j.ToTable("CertificateModule");
                         });
-            });
-
-            modelBuilder.Entity<CertificateModule>(entity =>
-            {
-                entity.ToTable("Certificate_Module");
-
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.ModuleDescription)
-                    .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .HasColumnName("Module_description");
-
-                entity.Property(e => e.ModuleName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("Module_name");
-
-                entity.Property(e => e.Status)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<CertificateQuestion>(entity =>
             {
-                entity.ToTable("Certificate_Question");
+                entity.ToTable("CertificateQuestion");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
+                entity.Property(e => e.Answer)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.CertificateId).HasMaxLength(50);
+                entity.Property(e => e.QuestionText)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Name).HasMaxLength(50);
-
-                entity.HasOne(d => d.Certificate)
+                entity.HasOne(d => d.Topic)
                     .WithMany(p => p.CertificateQuestions)
-                    .HasForeignKey(d => d.CertificateId)
-                    .HasConstraintName("FK__Certifica__Certi__4E88ABD4");
+                    .HasForeignKey(d => d.TopicId)
+                    .HasConstraintName("FK_CertificateQuestion_Topic");
             });
 
-            modelBuilder.Entity<CertificateSampletest>(entity =>
+            modelBuilder.Entity<CertificateSampleTest>(entity =>
             {
-                entity.ToTable("Certificate_Sampletest");
-
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.AttemptId).HasMaxLength(50);
-
-                entity.Property(e => e.CertificateId).HasMaxLength(50);
+                entity.ToTable("CertificateSampleTest");
 
                 entity.Property(e => e.SampleTestName)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("Sample_test_name");
-
-                entity.HasOne(d => d.Attempt)
-                    .WithMany(p => p.CertificateSampletests)
-                    .HasForeignKey(d => d.AttemptId)
-                    .HasConstraintName("FK__Certifica__Attem__4F7CD00D");
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Certificate)
-                    .WithMany(p => p.CertificateSampletests)
+                    .WithMany(p => p.CertificateSampleTests)
                     .HasForeignKey(d => d.CertificateId)
-                    .HasConstraintName("FK__Certifica__Certi__5070F446");
+                    .HasConstraintName("FK_CertificateSampleTest_Certificate");
             });
 
             modelBuilder.Entity<CertificateTestAttempt>(entity =>
             {
-                entity.ToTable("Certificate_Test_Attempt");
+                entity.ToTable("CertificateTestAttempt");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
+                entity.Property(e => e.AttemptDate).HasColumnType("datetime");
 
-                entity.Property(e => e.AttemptDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Attempt_date");
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.UserId).HasMaxLength(50);
+                entity.HasOne(d => d.SampleTest)
+                    .WithMany(p => p.CertificateTestAttempts)
+                    .HasForeignKey(d => d.SampleTestId)
+                    .HasConstraintName("FK_CertificateTestAttempt_SampleTest");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CertificateTestAttempts)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Certifica__UserI__5165187F");
+                    .HasConstraintName("FK_CertificateTestAttempt_User");
             });
 
             modelBuilder.Entity<CertificateTestQuestion>(entity =>
             {
-                entity.ToTable("Certificate_Test_Question");
+                entity.ToTable("CertificateTestQuestion");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.Questionid).HasMaxLength(50);
-
-                entity.Property(e => e.SampleTestId).HasMaxLength(50);
-
-                entity.HasOne(d => d.QuestionNavigation)
+                entity.HasOne(d => d.Question)
                     .WithMany(p => p.CertificateTestQuestions)
-                    .HasForeignKey(d => d.Questionid)
-                    .HasConstraintName("FK__Certifica__Quest__52593CB8");
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("FK_CertificateTestQuestion_Question");
 
                 entity.HasOne(d => d.SampleTest)
                     .WithMany(p => p.CertificateTestQuestions)
                     .HasForeignKey(d => d.SampleTestId)
-                    .HasConstraintName("FK__Certifica__Sampl__534D60F1");
+                    .HasConstraintName("FK_CertificateTestQuestion_SampleTest");
             });
 
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.ToTable("Course");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.CertificateId).HasMaxLength(50);
-
                 entity.Property(e => e.CourseName)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("Course_name");
+                    .IsUnicode(false);
 
-                entity.Property(e => e.EndTime)
-                    .HasColumnType("date")
-                    .HasColumnName("End_time");
+                entity.Property(e => e.EndTime).HasColumnType("datetime");
 
-                entity.Property(e => e.Endregisterdate).HasColumnType("date");
+                entity.Property(e => e.EnrollmentDate).HasColumnType("date");
 
                 entity.Property(e => e.Location)
                     .HasMaxLength(255)
@@ -210,147 +164,168 @@ namespace SWD.SAPelearning.Repository.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StartTime)
-                    .HasColumnType("date")
-                    .HasColumnName("Start_time");
-
-                entity.Property(e => e.Status)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TotalStudent).HasColumnName("Total_student");
-
-                entity.Property(e => e.UserId).HasMaxLength(50);
+                entity.Property(e => e.StartTime).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Certificate)
                     .WithMany(p => p.Courses)
                     .HasForeignKey(d => d.CertificateId)
-                    .HasConstraintName("FK__Course__Certific__5441852A");
+                    .HasConstraintName("FK_Course_Certificate");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Instructor)
                     .WithMany(p => p.Courses)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Course__UserId__5535A963");
+                    .HasForeignKey(d => d.InstructorId)
+                    .HasConstraintName("FK_Course_Instructor");
             });
 
             modelBuilder.Entity<CourseMaterial>(entity =>
             {
-                entity.ToTable("Course_Material");
-
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.CourseId).HasMaxLength(50);
+                entity.ToTable("CourseMaterial");
 
                 entity.Property(e => e.FileMaterial)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("File_material");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.MaterialName)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("Material_name");
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.CourseMaterials)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__Course_Ma__Cours__5629CD9C");
+                    .HasConstraintName("FK_CourseMaterial_Course");
             });
 
             modelBuilder.Entity<CourseSession>(entity =>
             {
-                entity.ToTable("Course_Session");
+                entity.ToTable("CourseSession");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.CourseId).HasMaxLength(50);
-
-                entity.Property(e => e.SessionDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Session_date");
+                entity.Property(e => e.SessionDate).HasColumnType("datetime");
 
                 entity.Property(e => e.SessionDescription)
                     .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .HasColumnName("Session_description");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.SessionName)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("Session_name");
-
-                entity.Property(e => e.Status)
-                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.CourseSessions)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__Course_Se__Cours__571DF1D5");
+                    .HasConstraintName("FK_CourseSession_Course");
+
+                entity.HasOne(d => d.Instructor)
+                    .WithMany(p => p.CourseSessions)
+                    .HasForeignKey(d => d.InstructorId)
+                    .HasConstraintName("FK_CourseSession_Instructor");
+
+                entity.HasOne(d => d.Topic)
+                    .WithMany(p => p.CourseSessions)
+                    .HasForeignKey(d => d.TopicId)
+                    .HasConstraintName("FK_CourseSession_Topic");
             });
 
             modelBuilder.Entity<Enrollment>(entity =>
             {
                 entity.ToTable("Enrollment");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.CourseId).HasMaxLength(50);
-
-                entity.Property(e => e.EnrollmentDate)
-                    .HasColumnType("date")
-                    .HasColumnName("Enrollment_date");
-
-                entity.Property(e => e.PaymentId).HasMaxLength(50);
+                entity.Property(e => e.EnrollmentDate).HasColumnType("date");
 
                 entity.Property(e => e.Status)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserId).HasMaxLength(50);
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Enrollments)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__Enrollmen__Cours__5812160E");
+                    .HasConstraintName("FK_Enrollment_Course");
+
+                entity.HasOne(d => d.Payment)
+                    .WithMany(p => p.Enrollments)
+                    .HasForeignKey(d => d.PaymentId)
+                    .HasConstraintName("FK_Enrollment_Payment");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Enrollments)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Enrollmen__UserI__59063A47");
+                    .HasConstraintName("FK_Enrollment_User");
+            });
+
+            modelBuilder.Entity<Instructor>(entity =>
+            {
+                entity.ToTable("Instructor");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fullname)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Phonenumber)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Instructors)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Instructor_User");
             });
 
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.ToTable("Payment");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
-
-                entity.Property(e => e.EnrollmentId).HasMaxLength(50);
-
-                entity.Property(e => e.PaymentDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Payment_date");
+                entity.Property(e => e.PaymentDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Status)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
 
-                entity.Property(e => e.TransactionId)
-                    .HasMaxLength(50)
-                    .HasColumnName("Transaction_id");
+            modelBuilder.Entity<SapModule>(entity =>
+            {
+                entity.ToTable("SapModule");
 
-                entity.HasOne(d => d.Enrollment)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.EnrollmentId)
-                    .HasConstraintName("FK__Payment__Enrollm__59FA5E80");
+                entity.Property(e => e.ModuleDescription)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModuleName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TopicArea>(entity =>
+            {
+                entity.ToTable("TopicArea");
+
+                entity.Property(e => e.TopicName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Certificate)
+                    .WithMany(p => p.TopicAreas)
+                    .HasForeignKey(d => d.CertificateId)
+                    .HasConstraintName("FK_CertificateTopicArea_Certificate");
             });
 
             modelBuilder.Entity<Usertb>(entity =>
             {
                 entity.ToTable("Usertb");
 
-                entity.Property(e => e.Id).HasMaxLength(50);
+                entity.Property(e => e.Id)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Education)
                     .HasMaxLength(255)
@@ -365,28 +340,24 @@ namespace SWD.SAPelearning.Repository.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Gender)
-                    .HasMaxLength(10)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IsOnline).HasColumnName("Is_Online");
-
-                entity.Property(e => e.LastLogin)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Last_Login");
+                entity.Property(e => e.LastLogin).HasColumnType("datetime");
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Phonenumber)
-                    .HasMaxLength(20)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RegistrationDate)
-                    .HasColumnType("date")
-                    .HasColumnName("Registration_Date");
+                entity.Property(e => e.RegistrationDate).HasColumnType("date");
 
-                entity.Property(e => e.Rolename).HasMaxLength(20);
+                entity.Property(e => e.Role)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(255)

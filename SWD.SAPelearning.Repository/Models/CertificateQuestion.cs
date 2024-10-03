@@ -10,14 +10,14 @@ namespace SWD.SAPelearning.Repository.Models
             CertificateTestQuestions = new HashSet<CertificateTestQuestion>();
         }
 
-        public string Id { get; set; } = null!;
-        public string? CertificateId { get; set; }
-        public int? Numberofquestion { get; set; }
-        public string? Name { get; set; }
-        public double? Score { get; set; }
+        public int Id { get; set; }
+        public int? TopicId { get; set; }
+        public string? QuestionText { get; set; }
+        public string? Answer { get; set; }
+        public bool? IsCorrect { get; set; }
         public bool? Status { get; set; }
 
-        public virtual Certificate? Certificate { get; set; }
+        public virtual TopicArea? Topic { get; set; }
         public virtual ICollection<CertificateTestQuestion> CertificateTestQuestions { get; set; }
     }
 }

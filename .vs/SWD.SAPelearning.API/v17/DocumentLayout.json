@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\swd\\SWD.SAPelearning.API\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|d:\\swd\\swd.sapelearning.api\\swd.sapelearning.repository\\models\\sapelearningcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\sapelearningcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\swd.sapelearning.api\\swd.sapelearning.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,10 +23,6 @@
       "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\certificatetestattempt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|d:\\swd\\swd.sapelearning.api\\swd.sapelearning.repository\\models\\sapelearningcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\sapelearningcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|d:\\swd\\swd.sapelearning.api\\swd.sapelearning.repository\\dto\\certifficatetestattempt\\removeadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\dto\\certifficatetestattempt\\removeadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,7 +42,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SUser.cs",
               "DocumentMoniker": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SUser.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SUser.cs",
@@ -50,12 +50,11 @@
               "RelativeToolTip": "SWD.SAPelearning.Service\\SUser.cs",
               "ViewState": "AQIAAAoBAAAAAAAAAAAowEABAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T04:33:07.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T04:33:07.096Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "IUser.cs",
               "DocumentMoniker": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\IUser.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\IUser.cs",
@@ -63,12 +62,11 @@
               "RelativeToolTip": "SWD.SAPelearning.Repository\\IUser.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAAABAAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T04:32:46.766Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T04:32:46.766Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "CertificateTestAttempt.cs",
               "DocumentMoniker": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\Models\\CertificateTestAttempt.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\CertificateTestAttempt.cs",
@@ -80,15 +78,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "SAPelearningContext.cs",
               "DocumentMoniker": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
               "ToolTip": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
               "RelativeToolTip": "SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
-              "ViewState": "AQIAAFsAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "ViewState": "AQIAAM4AAAAAAAAAAAAAwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T04:32:08.291Z"
+              "WhenOpened": "2024-10-01T04:32:08.291Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -104,13 +103,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.API\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\UserController.cs",
               "ToolTip": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.API\\Controllers\\UserController.cs",
               "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\UserController.cs",
-              "ViewState": "AQIAALIAAAAAAAAAAAAowL0AAAApAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAL0AAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-01T04:00:34.02Z",
               "EditorCaption": ""

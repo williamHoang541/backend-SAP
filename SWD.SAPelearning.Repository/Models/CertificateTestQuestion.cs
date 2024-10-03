@@ -5,14 +5,13 @@ namespace SWD.SAPelearning.Repository.Models
 {
     public partial class CertificateTestQuestion
     {
-        public string Id { get; set; } = null!;
-        public string? SampleTestId { get; set; }
-        public string? Questionid { get; set; }
-        public int? Question { get; set; }
-        public int? Answer { get; set; }
+        public int Id { get; set; }
+        public int? SampleTestId { get; set; }
+        public int? QuestionId { get; set; }
+        public int? DisplayInTest { get; set; }
         public bool? Status { get; set; }
 
-        public virtual CertificateQuestion? QuestionNavigation { get; set; }
-        public virtual CertificateSampletest? SampleTest { get; set; }
+        public virtual CertificateQuestion? Question { get; set; }
+        public virtual CertificateSampleTest? SampleTest { get; set; }
     }
 }

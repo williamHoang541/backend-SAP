@@ -5,13 +5,18 @@ namespace SWD.SAPelearning.Repository.Models
 {
     public partial class Payment
     {
-        public string Id { get; set; } = null!;
-        public string? EnrollmentId { get; set; }
-        public double? Amount { get; set; }
-        public DateTime? PaymentDate { get; set; }
-        public string? TransactionId { get; set; }
-        public string? Status { get; set; }
+        public Payment()
+        {
+            Enrollments = new HashSet<Enrollment>();
+        }
 
-        public virtual Enrollment? Enrollment { get; set; }
+        public int Id { get; set; }
+        public int? EnrollmentId { get; set; }
+        public double Amount { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public int TransactionId { get; set; }
+        public string Status { get; set; } = null!;
+
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }

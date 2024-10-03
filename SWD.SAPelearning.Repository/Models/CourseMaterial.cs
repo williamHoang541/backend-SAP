@@ -5,10 +5,10 @@ namespace SWD.SAPelearning.Repository.Models
 {
     public partial class CourseMaterial
     {
-        public string Id { get; set; } = null!;
-        public string? CourseId { get; set; }
-        public string? MaterialName { get; set; }
-        public string? FileMaterial { get; set; }
+        public int Id { get; set; }
+        public int? CourseId { get; set; }
+        public string MaterialName { get; set; } = null!;
+        public string FileMaterial { get; set; } = null!;
 
         public virtual Course? Course { get; set; }
     }

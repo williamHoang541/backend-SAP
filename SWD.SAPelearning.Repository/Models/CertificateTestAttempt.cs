@@ -5,17 +5,16 @@ namespace SWD.SAPelearning.Repository.Models
 {
     public partial class CertificateTestAttempt
     {
-        public CertificateTestAttempt()
-        {
-            CertificateSampletests = new HashSet<CertificateSampletest>();
-        }
-
-        public string Id { get; set; } = null!;
+        public int Id { get; set; }
         public string? UserId { get; set; }
-        public DateTime AttemptDate { get; set; }
+        public int? SampleTestId { get; set; }
+        public DateTime? AttemptDate { get; set; }
+        public double? Score { get; set; }
+        public int? CorrectAnswers { get; set; }
+        public int? TotalAnswers { get; set; }
         public bool? Status { get; set; }
 
+        public virtual CertificateSampleTest? SampleTest { get; set; }
         public virtual Usertb? User { get; set; }
-        public virtual ICollection<CertificateSampletest> CertificateSampletests { get; set; }
     }
 }

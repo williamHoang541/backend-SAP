@@ -24,16 +24,117 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers(
+            string filterOn = null,
+            string filterQuery = null,
+            string sortBy = null,
+            bool? isAscending = null, // Change to nullable bool
+            int pageNumber = 1,
+            int pageSize = 10)
         {
             try
             {
-                var a = await this.context.Users.ToListAsync();
-                return a;
+                var query = this.context.Users.AsQueryable();
+
+                // Filtering
+                if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery))
+                {
+                    switch (filterOn.ToLower())
+                    {
+                        case "username":
+                            query = query.Where(u => u.Username.Contains(filterQuery));
+                            break;
+                        case "email":
+                            query = query.Where(u => u.Email.Contains(filterQuery));
+                            break;
+                        case "fullname":
+                            query = query.Where(u => u.Fullname.Contains(filterQuery));
+                            break;
+                        case "education":
+                            query = query.Where(u => u.Education.Contains(filterQuery));
+                            break;
+                        case "phonenumber":
+                            query = query.Where(u => u.Phonenumber.Contains(filterQuery));
+                            break;
+                        case "gender":
+                            query = query.Where(u => u.Gender.Contains(filterQuery));
+                            break;
+                        case "registrationdate":
+                            if (DateTime.TryParse(filterQuery, out var regDate))
+                            {
+                                query = query.Where(u => u.RegistrationDate.HasValue && u.RegistrationDate.Value.Date == regDate.Date);
+                            }
+                            break;
+                        case "role":
+                            query = query.Where(u => u.Role.Equals(filterQuery, StringComparison.OrdinalIgnoreCase));
+                            break;
+                        case "lastlogin":
+                            if (DateTime.TryParse(filterQuery, out var lastLogin))
+                            {
+                                query = query.Where(u => u.LastLogin.HasValue && u.LastLogin.Value.Date == lastLogin.Date);
+                            }
+                            break;
+                        case "isonline":
+                            if (bool.TryParse(filterQuery, out var isOnline))
+                            {
+                                query = query.Where(u => u.IsOnline == isOnline);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                // Sorting
+                if (!string.IsNullOrEmpty(sortBy))
+                {
+                    if (isAscending == true)
+                    {
+                        // Sort in ascending order
+                        query = sortBy.ToLower() switch
+                        {
+                            "username" => query.OrderBy(u => u.Username),
+                            "email" => query.OrderBy(u => u.Email),
+                            "fullname" => query.OrderBy(u => u.Fullname),
+                            "education" => query.OrderBy(u => u.Education),
+                            "phonenumber" => query.OrderBy(u => u.Phonenumber),
+                            "gender" => query.OrderBy(u => u.Gender),
+                            "registrationdate" => query.OrderBy(u => u.RegistrationDate),
+                            "role" => query.OrderBy(u => u.Role),
+                            "lastlogin" => query.OrderBy(u => u.LastLogin),
+                            "isonline" => query.OrderBy(u => u.IsOnline),
+                            _ => query.OrderBy(u => u.Username) // Default sort
+                        };
+                    }
+                    else if (isAscending == false)
+                    {
+                        // Sort in descending order
+                        query = sortBy.ToLower() switch
+                        {
+                            "username" => query.OrderByDescending(u => u.Username),
+                            "email" => query.OrderByDescending(u => u.Email),
+                            "fullname" => query.OrderByDescending(u => u.Fullname),
+                            "education" => query.OrderByDescending(u => u.Education),
+                            "phonenumber" => query.OrderByDescending(u => u.Phonenumber),
+                            "gender" => query.OrderByDescending(u => u.Gender),
+                            "registrationdate" => query.OrderByDescending(u => u.RegistrationDate),
+                            "role" => query.OrderByDescending(u => u.Role),
+                            "lastlogin" => query.OrderByDescending(u => u.LastLogin),
+                            "isonline" => query.OrderByDescending(u => u.IsOnline),
+                            _ => query.OrderByDescending(u => u.Username) // Default sort
+                        };
+                    }
+                    // If isAscending is null, no sorting will be applied.
+                }
+
+                // Paging
+                var totalRecords = await query.CountAsync();
+                var users = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+                return users;
             }
             catch (Exception ex)
             {
-
                 throw new Exception($"{ex.Message}");
             }
         }
@@ -67,7 +168,7 @@ namespace SAPelearning_bakend.Repositories.Services
         {
             try
             {
-                // Truy xuất người dùng dựa trên tên đăng nhập
+                // Retrieve the user based on the username
                 var user = await this.context.Users
                     .Where(x => x.Username.Equals(request.Username))
                     .FirstOrDefaultAsync();
@@ -75,22 +176,25 @@ namespace SAPelearning_bakend.Repositories.Services
                 if (user == null)
                     throw new Exception("USER IS NOT FOUND");
 
-                // Kiểm tra mật khẩu
+                // Check if the password is correct
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                     throw new Exception("INVALID PASSWORD");
 
-                // Kiểm tra vai trò: chỉ cho phép student và instructor đăng nhập trên app
-                if (user.Role != "student" )
+                // Check role: only allow student and instructor to log in on the app
+                if (user.Role != "student")
                 {
                     throw new Exception("STUDENT ALLOW ON APP");
                 }
 
-                // Đặt trạng thái người dùng là trực tuyến
+                // Update LastLogin date/time
+                user.LastLogin = DateTime.Now; // Or DateTime.UtcNow if you want UTC time
+
+                // Set user status to online
                 user.IsOnline = true;
                 this.context.Users.Update(user);
                 await this.context.SaveChangesAsync();
 
-                // Tạo và trả về token
+                // Create and return token
                 var token = CreateToken(user);
                 return token;
             }
@@ -99,7 +203,6 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"{ex.Message}");
             }
         }
-
 
         public async Task<string> LoginWeb(LoginDTO request)
         {
@@ -125,6 +228,11 @@ namespace SAPelearning_bakend.Repositories.Services
 
                 // Đặt trạng thái người dùng là trực tuyến
                 user.IsOnline = true;
+
+                // Cập nhật thời gian đăng nhập cuối cùng
+                user.LastLogin = DateTime.Now; // hoặc DateTime.UtcNow nếu muốn theo giờ UTC
+
+                // Cập nhật thông tin người dùng
                 this.context.Users.Update(user);
                 await this.context.SaveChangesAsync();
 
@@ -137,7 +245,6 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"{ex.Message}");
             }
         }
-
 
         public async Task<User> Registration(RegisterDTO request)
         {
@@ -156,6 +263,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     r.Id = "S" + Guid.NewGuid().ToString().Substring(0, 5);
                     r.Username = request.Username;
                     r.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
+                    r.RegistrationDate = DateTime.Now;
                     r.Role = "student";
                     r.LastLogin= DateTime.Now;
                     r.IsOnline = true;
@@ -208,6 +316,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     instructorUser.Fullname = request.Fullname;
                     instructorUser.Education = request.Education;
                     instructorUser.Phonenumber = request.PhoneNumber;
+                    instructorUser.RegistrationDate = DateTime.Now;
                     instructorUser.Gender = request.Gender;
                     instructorUser.Role = "instructor";
                     instructorUser.LastLogin = DateTime.Now;
@@ -310,22 +419,7 @@ namespace SAPelearning_bakend.Repositories.Services
             }
         }
 
-        public async Task<User> getUserByID(SearchUserIdDTO id)
-        {
-            try
-            {
-                var search = await this.context.Users.Where(x => x.Id.Equals(id.userID))
-                                                                .FirstOrDefaultAsync();
-                return search;
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"{ex.Message}");
-            }
-        }
-
-        public async Task<User> UpdateStatusIsOnline(string userID)
+        public async Task<User> UpdateIsOnlineLogout(string userID)
         {
             try
             {
@@ -337,8 +431,8 @@ namespace SAPelearning_bakend.Repositories.Services
                     throw new Exception("User not found");
                 }
 
-                // Toggle the IsOnline status
-                user.IsOnline = !user.IsOnline;
+                // Set IsOnline status to false for logout
+                user.IsOnline = false;
 
                 // Update the user's record
                 this.context.Users.Update(user);
@@ -348,10 +442,8 @@ namespace SAPelearning_bakend.Repositories.Services
             }
             catch (Exception)
             {
-
-                throw;
+                throw; // Rethrow the exception for further handling
             }
-
         }
 
         public async Task<List<User>> GetStudentsByPrefix(string userIdPrefix)
@@ -376,8 +468,29 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 if (id != null)
                 {
-                    var obj = await this.context.Users.Where(x => x.Id.Equals(id.UserID)).FirstOrDefaultAsync();
-                    this.context.Users.Remove(obj);
+                    // Find the user by UserID
+                    var user = await this.context.Users
+                        .Where(x => x.Id.Equals(id.UserID))
+                        .FirstOrDefaultAsync();
+
+                    if (user == null)
+                    {
+                        throw new Exception("User not found");
+                    }
+
+                    // Find the instructor associated with the user
+                    var instructor = await this.context.Instructors
+                        .Where(i => i.UserId.Equals(user.Id))
+                        .FirstOrDefaultAsync();
+
+                    // If an instructor exists, remove it
+                    if (instructor != null)
+                    {
+                        this.context.Instructors.Remove(instructor);
+                    }
+
+                    // Remove the user
+                    this.context.Users.Remove(user);
                     await this.context.SaveChangesAsync();
                     return true;
                 }
@@ -385,9 +498,16 @@ namespace SAPelearning_bakend.Repositories.Services
             }
             catch (Exception ex)
             {
+                // Capture the error message and include inner exception if available
+                var errorMessage = $"{ex.Message}";
+                if (ex.InnerException != null)
+                {
+                    errorMessage += $" Inner Exception: {ex.InnerException.Message}";
+                }
 
-                throw new Exception($"{ex.Message}");
+                throw new Exception(errorMessage);
             }
         }
+
     }
 }

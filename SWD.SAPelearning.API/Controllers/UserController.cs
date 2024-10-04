@@ -19,16 +19,23 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-user")]
-        public async Task<IActionResult> GetAll()
+        [Route("api/users")]
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string filterOn = null,
+            [FromQuery] string filterQuery = null,
+            [FromQuery] string sortBy = null,
+            [FromQuery] bool? isAscending = null, // Change to nullable bool
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
+            var users = await this.user.GetAllUsers(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
 
-            var a = await this.user.GetAllUsers();
-            if (a == null)
+            if (users == null || !users.Any())
             {
                 return NotFound();
             }
-            return Ok(a);
+
+            return Ok(users);
         }
 
         /// <summary>
@@ -65,7 +72,7 @@ namespace SWD.SAPelearning.API.Controllers
         {
             try
             {
-                var a = await this.user.LoginWeb(user);
+                var a = await this.user.LoginApp(user);
                 return Ok(a);
             }
             catch (Exception ex)
@@ -125,7 +132,7 @@ namespace SWD.SAPelearning.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [Route("update-student")]
-        [HttpPatch]
+        [HttpPut]
         public async Task<IActionResult> UpdateStudent(string id, UpdateUserStudentDTO user)
         {
             try
@@ -162,43 +169,18 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         /// <summary>
-        /// get-by-id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [Route("get-by-id")]
-        [HttpPost]
-        public async Task<IActionResult> GetUserById(SearchUserIdDTO id)
-        {
-            try
-            {
-                var user = await this.user.getUserByID(id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// update-status-is-online
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [AllowAnonymous]
         [Route("update-status-is-online")]
-        [HttpPatch]
+        [HttpPut]
         public async Task<IActionResult> UpdateStatusIsOnline(string id)
         {
             try
             {
-                var a = await this.user.UpdateStatusIsOnline(id);
+                var a = await this.user.UpdateIsOnlineLogout(id);
                 return Ok(a);
             }
             catch (Exception ex)
@@ -240,11 +222,11 @@ namespace SWD.SAPelearning.API.Controllers
         [AllowAnonymous]
         [Route("delete")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(RemoveUDTO user)
+        public async Task<IActionResult> Delete(RemoveUDTO id)
         {
             try
             {
-                var a = await this.user.Delete(user);
+                var a = await this.user.Delete(id);
                 return Ok(a);
             }
             catch (Exception ex)

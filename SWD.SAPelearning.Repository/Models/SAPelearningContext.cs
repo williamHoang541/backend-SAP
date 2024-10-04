@@ -181,9 +181,7 @@ namespace SWD.SAPelearning.Repository.Models
             {
                 entity.ToTable("CourseMaterial");
 
-                entity.Property(e => e.FileMaterial)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.FileMaterial).IsUnicode(false);
 
                 entity.Property(e => e.MaterialName)
                     .HasMaxLength(255)

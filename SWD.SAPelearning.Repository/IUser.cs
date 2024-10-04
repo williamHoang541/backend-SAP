@@ -6,15 +6,14 @@ namespace SWD.SAPelearning.Repository
 {
     public interface IUser
     {
-        Task<List<User>> GetAllUsers();
+        Task<List<User>> GetAllUsers(string filterOn = null,string filterQuery = null,string sortBy = null,bool? isAscending = null,  int pageNumber = 1,int pageSize = 10);
         Task<string> LoginApp(LoginDTO request);
         Task<string> LoginWeb(LoginDTO request);
         Task<User> Registration(RegisterDTO request);
         Task<User> CreateInstructor(CreateUserInstructorDTO request);
         Task<User> UpdateStudent(string id, UpdateUserStudentDTO user);
         Task<List<User>> SearchByName(string name);
-        Task<User> getUserByID(SearchUserIdDTO id);
-        Task<User> UpdateStatusIsOnline(string userID);
+        Task<User> UpdateIsOnlineLogout(string userID);
         Task<List<User>> GetStudentsByPrefix(string userIdPrefix);
         Task<bool> Delete(RemoveUDTO id);
     }

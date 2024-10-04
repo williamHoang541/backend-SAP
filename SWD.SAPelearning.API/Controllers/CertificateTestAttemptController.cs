@@ -88,7 +88,7 @@ namespace SWD.SAPelearning.API.Controllers
         [AllowAnonymous]
         [Route("delete")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(RemoveADTO Attempt)
+        public async Task<IActionResult> Delete(Repository.DTO.CertifficateTestAttempt.RemoveADTO Attempt)
         {
             try
             {

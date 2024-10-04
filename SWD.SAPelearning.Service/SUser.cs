@@ -43,7 +43,7 @@ namespace SAPelearning_bakend.Repositories.Services
 
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, user.Rolename),
+                new Claim(ClaimTypes.Role, user.Role),
                 new Claim("userid", user.Id),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -68,7 +68,7 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Retrieve the user based on the username
                 var user = await this.context.Usertbs.Where(x => x.Username.Equals(request.Username))
-                                                     .Include(y => y.Rolename)
+                                                     .Include(y => y.Role)
                                                      .FirstOrDefaultAsync();
 
                 if (user == null)
@@ -109,7 +109,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     r.Id = "S" + Guid.NewGuid().ToString().Substring(0, 5);
                     r.Username = request.Username;
                     r.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
-                    r.Rolename = "student";
+                    r.Role = "student";
                     r.LastLogin= DateTime.Now;
                     r.IsOnline = true;
                     await this.context.Usertbs.AddAsync(r);
@@ -127,9 +127,10 @@ namespace SAPelearning_bakend.Repositories.Services
 
         public async Task<Usertb> CreateInstructor(CreateUserInstructorDTO request)
         {
+            using var transaction = await this.context.Database.BeginTransactionAsync(); // Start a database transaction
             try
             {
-                var instructor = new Usertb();
+                var instructorUser = new Usertb();
                 if (request != null)
                 {
                     // Validate Gender
@@ -153,31 +154,50 @@ namespace SAPelearning_bakend.Repositories.Services
                     }
 
                     // Create unique UserId for Instructor
-                    instructor.Id = "I" + Guid.NewGuid().ToString().Substring(0, 5);
-                    instructor.Username = request.Username;
-                    instructor.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
-                    instructor.Email = request.Email;
-                    instructor.Fullname = request.Fullname;
-                    instructor.Education = request.Education;
-                    instructor.Phonenumber = request.PhoneNumber;
-                    instructor.Gender = request.Gender;
-                    instructor.Rolename = "instructor"; 
-                    instructor.LastLogin = DateTime.Now;
-                    instructor.IsOnline = false;
+                    instructorUser.Id = "I" + Guid.NewGuid().ToString().Substring(0, 5);
+                    instructorUser.Username = request.Username;
+                    instructorUser.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
+                    instructorUser.Email = request.Email;
+                    instructorUser.Fullname = request.Fullname;
+                    instructorUser.Education = request.Education;
+                    instructorUser.Phonenumber = request.PhoneNumber;
+                    instructorUser.Gender = request.Gender;
+                    instructorUser.Role = "instructor";
+                    instructorUser.LastLogin = DateTime.Now;
+                    instructorUser.IsOnline = false;
 
-                    // Add the instructor to the database
-                    await this.context.Usertbs.AddAsync(instructor);
+                    // Add the instructor to the Usertb table
+                    await this.context.Usertbs.AddAsync(instructorUser);
                     await this.context.SaveChangesAsync();
-                    return instructor;
+
+                    // Now insert instructor-specific data into the Instructor table
+                    var instructor = new Instructor
+                    {
+                        UserId = instructorUser.Id, // Link to Usertb.Id
+                        Fullname = instructorUser.Fullname,
+                        Email = instructorUser.Email,
+                        Phonenumber = instructorUser.Phonenumber,
+                        Status = true // Assuming new instructor is active by default, change if needed
+                    };
+
+                    // Add instructor-specific details to Instructor table
+                    await this.context.Instructors.AddAsync(instructor);
+                    await this.context.SaveChangesAsync();
+
+                    await transaction.CommitAsync(); // Commit transaction
+
+                    return instructorUser;
                 }
                 return null;
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync(); // Rollback in case of an error
                 var errorMessage = $"{ex.Message} {(ex.InnerException != null ? ex.InnerException.Message : string.Empty)}";
                 throw new Exception(errorMessage);
             }
         }
+
 
         public async Task<Usertb> UpdateStudent(string id, UpdateUserStudentDTO user)
         {
@@ -288,22 +308,6 @@ namespace SAPelearning_bakend.Repositories.Services
 
         }
 
-        public async Task<List<Usertb>> GetInstructorsByPrefix(string userIdPrefix)
-        {
-            // Ensure the prefix is provided
-            if (string.IsNullOrEmpty(userIdPrefix))
-            {
-                throw new ArgumentException("User ID prefix cannot be null or empty.");
-            }
-
-            // Retrieve all instructors whose IDs start with the specified prefix
-            var instructors = await this.context.Usertbs
-                .Where(u => u.Id.StartsWith(userIdPrefix) && u.Rolename == "instructor") // Use '==' for comparison
-                .ToListAsync();
-
-            return instructors;
-        }
-
         public async Task<List<Usertb>> GetStudentsByPrefix(string userIdPrefix)
         {
             // Ensure the prefix is provided
@@ -314,7 +318,7 @@ namespace SAPelearning_bakend.Repositories.Services
 
             // Retrieve all students whose IDs start with the specified prefix
             var students = await this.context.Usertbs
-                .Where(u => u.Id.StartsWith(userIdPrefix) && u.Rolename == "student") // Use '==' for comparison
+                .Where(u => u.Id.StartsWith(userIdPrefix) && u.Role == "student") // Use '==' for comparison
                 .ToListAsync();
 
             return students;

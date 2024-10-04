@@ -6,21 +6,21 @@ namespace SWD.SAPelearning.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CertificateModuleController : ControllerBase
+    public class SapModuleController : ControllerBase
     {
-        private readonly ICertificateModule certificate_module;
+        private readonly ISapModule certificate_module;
 
-        public CertificateModuleController(ICertificateModule certificate_module)
+        public SapModuleController(ISapModule certificate_module)
         {
             this.certificate_module = certificate_module;
         }
 
         [HttpGet]
-        [Route("get-all-certificate-module")]
+        [Route("get-all")]
         public async Task<IActionResult> GetAll()
         {
 
-            var a = await this.certificate_module.GetAllCertificateModule();
+            var a = await this.certificate_module.GetAllSapModule();
             if (a == null)
             {
                 return NotFound();

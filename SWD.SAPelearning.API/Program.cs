@@ -8,6 +8,7 @@ using SWD.SAPelearning.Services;
 using System.Collections.Generic;
 using System.Text;
 using SAPelearning_bakend.Repositories.Services;
+using SWD.SAPelearning.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,6 @@ builder.Services.AddCors(p => p.AddPolicy("MyCors", buid =>
 }));
 
 builder.Services.AddScoped<ICertificate, SCertificate>();
-builder.Services.AddScoped<ICertificateModule, SCertificateModule>();
 builder.Services.AddScoped<ICertificateQuestion, SCertificateQuestion>();
 builder.Services.AddScoped<ICertificateSampletest, SCertificateSampletest>();
 builder.Services.AddScoped<ICertificateTestAttempt, SCertificateTestAttempt>();
@@ -38,8 +38,11 @@ builder.Services.AddScoped<ICertificateTestQuestion, SCertificateTestQuestion>()
 builder.Services.AddScoped<ICourse, SCourse>();
 builder.Services.AddScoped<ICourseMaterial, SCourseMaterial>();
 builder.Services.AddScoped<ICourseSession, SCourseSession>();
-builder.Services.AddScoped<IPayment, SPayment>();
 builder.Services.AddScoped<IEnrollment, SEnrollment>();
+builder.Services.AddScoped<IInstructor, SInstructor>();
+builder.Services.AddScoped<IPayment, SPayment>();
+builder.Services.AddScoped<ISapModule, SSapModule>();
+builder.Services.AddScoped<ITopicArea, STopicArea>();
 builder.Services.AddScoped<IUser, SUser>();
 
 

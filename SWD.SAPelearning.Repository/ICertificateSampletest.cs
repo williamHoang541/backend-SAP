@@ -4,6 +4,6 @@ namespace SWD.SAPelearning.Repository
 {
     public interface ICertificateSampletest
     {
-        Task<List<CertificateSampletest>> GetAllCertificateSampletest();
+        Task<List<CertificateSampleTest>> GetAllCertificateSampletest();
     }
 }

@@ -5,24 +5,24 @@ using SWD.SAPelearning.Repository.Models;
 
 namespace SAPelearning_bakend.Repositories.Services
 {
-    public class SCertificateModule : ICertificateModule
+    public class SSapModule : ISapModule
     {
         private readonly IConfiguration _configuration;
 
         private readonly SAPelearningContext context;
 
-        public SCertificateModule(SAPelearningContext Context, IConfiguration configuration)
+        public SSapModule(SAPelearningContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;
         }
 
 
-        public async Task<List<CertificateModule>> GetAllCertificateModule()
+        public async Task<List<SapModule>> GetAllSapModule()
         {
             try
             {
-                var a = await this.context.CertificateModules.ToListAsync();
+                var a = await this.context.SapModules.ToListAsync();
                 return a;
             }
             catch (Exception ex)

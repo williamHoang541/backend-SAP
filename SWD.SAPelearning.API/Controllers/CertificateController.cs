@@ -15,7 +15,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-certificate")]
+        [Route("get-all")]
         public async Task<IActionResult> GetAll()
         {
 

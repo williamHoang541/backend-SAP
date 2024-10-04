@@ -8,7 +8,7 @@ namespace SWD.SAPelearning.Repository
         Task<List<CertificateTestAttempt>> GetAllCertificateTestAttempt();
         Task<CertificateTestAttempt> CreateAttemp(string userId);
         Task<CertificateTestAttempt> UpdateStatusAttemptByUserId(string userId);
-        Task<CertificateTestAttempt> UpdateStatusAttempt(string attemptId);
+        Task<CertificateTestAttempt> UpdateStatusAttempt(int attemptId);
         Task<int> CountAttemptsByUserId(string userId);
         Task<bool> DeleteAttempt(RemoveADTO attemptId);
     }

@@ -49,27 +49,11 @@ namespace SWD.SAPelearning.API.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [Route("update-status-by-user-id")]
-        [HttpPatch] // Typically, status updates are done via POST or PUT
-        public async Task<IActionResult> UpdateStatusByUserId(string userId)
-        {
-            try
-            {
-                // Call the service method to update the status by user ID
-                var updatedAttempt = await this.certificate_test_attempt.UpdateStatusAttemptByUserId(userId);
-                return Ok(updatedAttempt); // Return the updated attempt
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message); // Return the error message
-            }
-        }
 
         [AllowAnonymous]
         [Route("update-status-by-attempt-id")]
         [HttpPatch] // Use POST or PUT for updates
-        public async Task<IActionResult> UpdateStatusByAttemptId(string attemptId)
+        public async Task<IActionResult> UpdateStatusByAttemptId(int attemptId)
         {
             try
             {

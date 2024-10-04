@@ -1,18 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
-
 
 namespace SWD.SAPelearning.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CertificateQuestionController : ControllerBase
+    public class InstructorController : ControllerBase
     {
-        private readonly ICertificateQuestion certificate_question;
+        private readonly IInstructor instructor;
 
-        public CertificateQuestionController(ICertificateQuestion certificate_question)
+        public InstructorController(IInstructor instructor)
         {
-            this.certificate_question = certificate_question;
+            this.instructor = instructor;
         }
 
         [HttpGet]
@@ -20,7 +19,7 @@ namespace SWD.SAPelearning.API.Controllers
         public async Task<IActionResult> GetAll()
         {
 
-            var a = await this.certificate_question.GetAllCertificateQuestion();
+            var a = await this.instructor.GetAllInstructor();
             if (a == null)
             {
                 return NotFound();

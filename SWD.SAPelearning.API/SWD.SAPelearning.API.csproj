@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SWD.SAPelearning.Repository\SWD.SAPelearning.Repository.csproj" />
     <ProjectReference Include="..\SWD.SAPelearning.Service\SWD.SAPelearning.Service.csproj" />
   </ItemGroup>

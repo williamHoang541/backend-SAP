@@ -16,7 +16,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-course")]
+        [Route("get-all")]
         public async Task<IActionResult> GetAll()
         {
 

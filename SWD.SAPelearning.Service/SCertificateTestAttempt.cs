@@ -40,7 +40,6 @@ namespace SAPelearning_bakend.Repositories.Services
                 // Create a new attempt
                 var attempt = new CertificateTestAttempt
                 {
-                    Id = "CA" + Guid.NewGuid().ToString().Substring(0, 5),
                     UserId = userId,
                     AttemptDate = DateTime.Now,
                     Status = true // Set status to true as per your requirements
@@ -66,7 +65,7 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Find the latest attempt for the given user ID
                 var attempt = await this.context.CertificateTestAttempts
-                    .Where(a => a.Id == userId) 
+                    .Where(a => a.UserId == userId) 
                     .OrderByDescending(a => a.AttemptDate) 
                     .FirstOrDefaultAsync();
 
@@ -90,7 +89,7 @@ namespace SAPelearning_bakend.Repositories.Services
             }
         }
 
-        public async Task<CertificateTestAttempt> UpdateStatusAttempt(string attemptId)
+        public async Task<CertificateTestAttempt> UpdateStatusAttempt(int attemptId)
         {
             try
             {

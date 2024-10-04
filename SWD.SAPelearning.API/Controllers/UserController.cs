@@ -187,30 +187,6 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [AllowAnonymous]
-        [Route("get-all-instructors-by-id-{prefix}")]
-        [HttpGet]
-        public async Task<IActionResult> GetInstructorsByPrefix(string prefix)
-        {
-            try
-            {
-                // Fetch instructors based on the prefix
-                var instructors = await this.user.GetInstructorsByPrefix(prefix);
-
-                // Check if any instructors were found
-                if (instructors == null || instructors.Count == 0)
-                {
-                    return NotFound("No instructors found with the specified prefix.");
-                }
-
-                return Ok(instructors);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [AllowAnonymous]
         [Route("get-all-student-by-id-{prefix}")]
         [HttpGet]
         public async Task<IActionResult> GetStudentsByPrefix(string prefix)

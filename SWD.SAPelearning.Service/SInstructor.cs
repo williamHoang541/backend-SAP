@@ -3,26 +3,25 @@ using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
 using SWD.SAPelearning.Repository.Models;
 
-namespace SAPelearning_bakend.Repositories.Services
+namespace SWD.SAPelearning.Service
 {
-    public class SCertificateSampletest : ICertificateSampletest
+    public class SInstructor : IInstructor
     {
         private readonly IConfiguration _configuration;
 
         private readonly SAPelearningContext context;
 
-        public SCertificateSampletest(SAPelearningContext Context, IConfiguration configuration)
+        public SInstructor(SAPelearningContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;
         }
 
-
-        public async Task<List<CertificateSampleTest>> GetAllCertificateSampletest()
+        public async Task<List<Instructor>> GetAllInstructor()
         {
             try
             {
-                var a = await this.context.CertificateSampleTests.ToListAsync();
+                var a = await this.context.Instructors.ToListAsync();
                 return a;
             }
             catch (Exception ex)

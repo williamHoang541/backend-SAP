@@ -17,6 +17,7 @@ namespace SWD.SAPelearning.Repository.Models
         }
 
         public virtual DbSet<Certificate> Certificates { get; set; } = null!;
+
         public virtual DbSet<CertificateQuestion> CertificateQuestions { get; set; } = null!;
         public virtual DbSet<CertificateSampleTest> CertificateSampleTests { get; set; } = null!;
         public virtual DbSet<CertificateTestAttempt> CertificateTestAttempts { get; set; } = null!;

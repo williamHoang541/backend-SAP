@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SWD.SAPelearning.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16be4f02d71ebbdd7e4f6c1d1222ac0117f4da10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e64e10dbd19f5655077d52774897d4d9d8a0197")]
 [assembly: System.Reflection.AssemblyProductAttribute("SWD.SAPelearning.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SWD.SAPelearning.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

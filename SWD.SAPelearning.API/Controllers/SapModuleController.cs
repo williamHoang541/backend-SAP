@@ -74,7 +74,7 @@ namespace SWD.SAPelearning.API.Controllers
                 var result = await this.certificate_module.DeleteSapModule(id);
                 if (result)
                 {
-                    return NoContent(); // Successfully deleted
+                    return Ok("Successfully Deleted"); // Return custom success message
                 }
                 return NotFound($"Module with ID {id} not found.");
             }

@@ -37,13 +37,35 @@ namespace SWD.SAPelearning.API.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [Route("login")]
+        [Route("login-web")]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO user)
+        public async Task<IActionResult> LoginWeb(LoginDTO user)
         {
             try
             {
-                var a = await this.user.Login(user);
+                var a = await this.user.LoginWeb(user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Login with username, password
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("login-app")]
+        [HttpPost]
+        public async Task<IActionResult> LoginApp(LoginDTO user)
+        {
+            try
+            {
+                var a = await this.user.LoginWeb(user);
                 return Ok(a);
             }
             catch (Exception ex)

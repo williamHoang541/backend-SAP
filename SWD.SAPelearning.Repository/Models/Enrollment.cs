@@ -15,6 +15,6 @@ namespace SWD.SAPelearning.Repository.Models
 
         public virtual Course? Course { get; set; }
         public virtual Payment? Payment { get; set; }
-        public virtual Usertb? User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SWD.SAPelearning.Repository.Models
 {
-    public partial class Usertb
+    public partial class User
     {
-        public Usertb()
+        public User()
         {
             CertificateTestAttempts = new HashSet<CertificateTestAttempt>();
             Enrollments = new HashSet<Enrollment>();

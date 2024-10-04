@@ -18,7 +18,7 @@ namespace SWD.SAPelearning.Repository.Models
         public string? Phonenumber { get; set; }
         public bool? Status { get; set; }
 
-        public virtual Usertb? User { get; set; }
+        public virtual User? User { get; set; }
         public virtual ICollection<CourseSession> CourseSessions { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
     }

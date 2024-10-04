@@ -15,6 +15,6 @@ namespace SWD.SAPelearning.Repository.Models
         public bool? Status { get; set; }
 
         public virtual CertificateSampleTest? SampleTest { get; set; }
-        public virtual Usertb? User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

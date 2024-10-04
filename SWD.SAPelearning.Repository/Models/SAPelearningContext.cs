@@ -29,7 +29,7 @@ namespace SWD.SAPelearning.Repository.Models
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<SapModule> SapModules { get; set; } = null!;
         public virtual DbSet<TopicArea> TopicAreas { get; set; } = null!;
-        public virtual DbSet<Usertb> Usertbs { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -319,9 +319,9 @@ namespace SWD.SAPelearning.Repository.Models
                     .HasConstraintName("FK_CertificateTopicArea_Certificate");
             });
 
-            modelBuilder.Entity<Usertb>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("Usertb");
+                entity.ToTable("User");
 
                 entity.Property(e => e.Id)
                     .HasMaxLength(255)

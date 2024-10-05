@@ -183,6 +183,75 @@ namespace SWD.SAPelearning.Services
                 throw new Exception($"An error occurred while retrieving the certificate: {ex.Message}", ex);
             }
         }
+        public async Task<bool> DeleteCertificate(int id)
+        {
+            try
+            {
+                // Retrieve the certificate along with its related entities
+                var existingCertificate = await context.Certificates
+                    .Include(c => c.Modules)
+                    .Include(c => c.Courses)
+                    .Include(c => c.CertificateSampleTests)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
+                if (existingCertificate == null)
+                {
+                    throw new Exception($"No certificate found with ID {id}.");
+                }
+
+                // Soft delete related courses if they exist
+                if (existingCertificate.Courses != null && existingCertificate.Courses.Any())
+                {
+                    foreach (var course in existingCertificate.Courses)
+                    {
+                        course.Status = false; // Assuming `Status` is a bool in the Course entity
+                    }
+                }
+
+                // Soft delete related sample tests if they exist
+                if (existingCertificate.CertificateSampleTests != null && existingCertificate.CertificateSampleTests.Any())
+                {
+                    foreach (var sampleTest in existingCertificate.CertificateSampleTests)
+                    {
+                        sampleTest.Status = false; // Assuming `Status` is a bool in the SampleTest entity
+                    }
+                }
+
+                // Soft delete related modules if no other certificates are associated
+                if (existingCertificate.Modules != null && existingCertificate.Modules.Any())
+                {
+                    foreach (var module in existingCertificate.Modules)
+                    {
+                        var moduleCertificates = await context.Certificates
+                            .Where(c => c.Modules.Any(m => m.Id == module.Id) && c.Id != id)
+                            .ToListAsync();
+
+                        // Only soft delete the module if no other certificate is using it
+                        if (!moduleCertificates.Any())
+                        {
+                            module.Status = false; // Assuming `Status` is a bool in the SapModule entity
+                        }
+                    }
+                }
+
+                // Delete the certificate from the database
+                context.Certificates.Remove(existingCertificate);
+                await context.SaveChangesAsync();
+
+                return true; // Certificate deleted successfully
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new Exception("There was an error deleting the Certificate from the database.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"{ex.Message} {(ex.InnerException != null ? ex.InnerException.Message : string.Empty)}";
+                throw new Exception($"An error occurred while deleting the Certificate: {errorMessage}");
+            }
+        }
+
+
 
 
     }

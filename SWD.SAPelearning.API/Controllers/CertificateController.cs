@@ -95,6 +95,25 @@ namespace SWD.SAPelearning.API.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteCertificate(int id)
+        {
+            try
+            {
+                // Attempt to delete the certificate
+                await this.certificate.DeleteCertificate(id);
+                return Ok($"Certificate with ID {id} was successfully deleted.");
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"Certificate with ID {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
 
     }

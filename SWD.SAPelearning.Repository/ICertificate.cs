@@ -12,6 +12,8 @@ namespace SWD.SAPelearning.Repository
         Task<Certificate> CreateCertificate(CertificateDTO request);
         Task<Certificate> GetCertificateById(int id);
         Task<CertificateDTO> UpdateCertificate(int id, CertificateDTO request);
-        
+        Task<bool> DeleteCertificate(int id);
+
+
     }
 }

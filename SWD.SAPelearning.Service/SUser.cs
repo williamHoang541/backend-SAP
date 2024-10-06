@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using SWD.SAPelearning.Repository.DTO;
+using System.Linq;
 
 namespace SAPelearning_bakend.Repositories.Services
 {
@@ -84,7 +85,6 @@ namespace SAPelearning_bakend.Repositories.Services
                 {
                     if (request.IsAscending == true)
                     {
-                        // Sort in ascending order
                         query = request.SortBy.ToLower() switch
                         {
                             "username" => query.OrderBy(u => u.Username),
@@ -102,7 +102,6 @@ namespace SAPelearning_bakend.Repositories.Services
                     }
                     else if (request.IsAscending == false)
                     {
-                        // Sort in descending order
                         query = request.SortBy.ToLower() switch
                         {
                             "username" => query.OrderByDescending(u => u.Username),
@@ -118,12 +117,14 @@ namespace SAPelearning_bakend.Repositories.Services
                             _ => query.OrderByDescending(u => u.Username) // Default sort
                         };
                     }
-                    // If isAscending is null, no sorting will be applied.
+                    // If IsAscending is null, no sorting will be applied.
                 }
 
                 // Paging
+                int pageNumber = request.PageNumber ?? 1; // Default to 1 if null
+                int pageSize = request.PageSize ?? 10; // Default to 10 if null
                 var totalRecords = await query.CountAsync();
-                var users = await query.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize).ToListAsync();
+                var users = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
 
                 return users;
             }
@@ -132,6 +133,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"{ex.Message}");
             }
         }
+
 
         private string CreateToken(User user)
         {

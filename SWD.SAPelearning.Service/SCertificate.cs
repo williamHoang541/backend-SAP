@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO.SapModuleDTO;
 using SWD.SAPelearning.Repository.Models;
 
 
@@ -19,20 +20,35 @@ namespace SWD.SAPelearning.Services
         }
 
 
-        public async Task<List<Certificate>> GetAllCertificate()
+        public async Task<List<CertificateDTO>> GetAllCertificate()
         {
             try
             {
-                var a = await this.context.Certificates.ToListAsync();
-                return a;
+                // Retrieve all certificates with their related modules
+                var certificates = await context.Certificates
+                    .Include(c => c.Modules) // Include the related modules
+                    .ToListAsync();
+
+                // Map the entities to DTOs
+                var certificateDTOs = certificates.Select(c => new CertificateDTO
+                {
+                    CertificateName = c.CertificateName,
+                    Description = c.Description,
+                    Level = c.Level,
+                    Environment = c.Environment,
+                    Status = c.Status,
+                    ModuleIds = c.Modules.Select(m => m.Id).ToList() // Extract module IDs
+                }).ToList();
+
+                return certificateDTOs;
             }
             catch (Exception ex)
             {
-
-                throw new Exception($"{ex.Message}");
+                // Handle exceptions with a clear message
+                throw new Exception($"An error occurred while retrieving certificates: {ex.Message}", ex);
             }
-
         }
+
 
         public async Task<Certificate> CreateCertificate(CertificateDTO request)
         {
@@ -72,6 +88,12 @@ namespace SWD.SAPelearning.Services
                         var module = await context.SapModules.FindAsync(moduleId);
                         if (module != null)
                         {
+                            // If module status is False, set it to True
+                            if (module.Status == false)
+                            {
+                                module.Status = true;
+                            }
+
                             certificate.Modules.Add(module); // Associate the module with the certificate
                         }
                         else
@@ -100,6 +122,7 @@ namespace SWD.SAPelearning.Services
                 throw new Exception($"An error occurred while creating the Certificate: {errorMessage}");
             }
         }
+
         public async Task<CertificateDTO> UpdateCertificate(int id, CertificateDTO request)
         {
             try
@@ -161,28 +184,48 @@ namespace SWD.SAPelearning.Services
         }
 
 
-        
 
 
 
 
 
-        public async Task<Certificate> GetCertificateById(int id)
+
+        public async Task<CertificateDTO> GetCertificateById(int id)
         {
             try
             {
-                var certificate = await context.Certificates.Include(c => c.Modules).FirstOrDefaultAsync(c => c.Id == id);
+                var certificate = await context.Certificates
+                    .Include(c => c.Modules) // Include related modules
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
                 if (certificate == null)
                 {
                     throw new Exception($"No certificate found with ID {id}.");
                 }
-                return certificate;
+
+                // Return the DTO with module IDs
+                return new CertificateDTO
+                {
+                    CertificateName = certificate.CertificateName,
+                    Description = certificate.Description,
+                    Level = certificate.Level,
+                    Environment = certificate.Environment,
+                    Status = certificate.Status,
+                    ModuleIds = certificate.Modules.Select(m => m.Id).ToList() // Extract module IDs
+                };
             }
             catch (Exception ex)
             {
                 throw new Exception($"An error occurred while retrieving the certificate: {ex.Message}", ex);
             }
         }
+
+
+
+
+
+
+
         public async Task<bool> DeleteCertificate(int id)
         {
             try
@@ -229,7 +272,7 @@ namespace SWD.SAPelearning.Services
                         // Only soft delete the module if no other certificate is using it
                         if (!moduleCertificates.Any())
                         {
-                            module.Status = false; // Assuming `Status` is a bool in the SapModule entity
+                            module.Status = false; // Set module status to false
                         }
                     }
                 }
@@ -250,6 +293,7 @@ namespace SWD.SAPelearning.Services
                 throw new Exception($"An error occurred while deleting the Certificate: {errorMessage}");
             }
         }
+
 
 
 

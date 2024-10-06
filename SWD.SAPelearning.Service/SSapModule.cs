@@ -153,22 +153,32 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"An error occurred while deleting the SapModule: {errorMessage}");
             }
         }
-        public async Task<SapModule> GetSapModuleById(int id)
+        public async Task<SapModuleDTO> GetSapModuleById(int id)
         {
             try
             {
+                // Find the SapModule by ID
                 var module = await context.SapModules.FindAsync(id);
+
                 if (module == null)
                 {
                     throw new Exception($"No module found with ID {id}.");
                 }
-                return module;
+
+                // Map the entity to the DTO
+                return new SapModuleDTO
+                {
+                    ModuleName = module.ModuleName,
+                    ModuleDescription = module.ModuleDescription,
+                    Status = (bool)module.Status
+                };
             }
             catch (Exception ex)
             {
                 throw new Exception($"An error occurred while retrieving the SapModule: {ex.Message}", ex);
             }
         }
+
 
 
     }

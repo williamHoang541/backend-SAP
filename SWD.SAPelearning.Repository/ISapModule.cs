@@ -10,6 +10,6 @@ namespace SWD.SAPelearning.Repository
         Task<SapModule> CreateSapModule(SapModuleDTO request);
         Task<SapModule> UpdateSapModule(int id, SapModuleDTO request);
         Task<bool> DeleteSapModule(int id);
-        Task<SapModule> GetSapModuleById(int id);
+        Task<SapModuleDTO> GetSapModuleById(int id);
     }
 }

@@ -14,11 +14,11 @@ namespace SWD.SAPelearning.Repository.Models
         }
 
         public int Id { get; set; }
-        public string CertificateName { get; set; } = null!;
+        public string? CertificateName { get; set; } = null!;
         public string? Description { get; set; }
         public string? Level { get; set; }
         public string? Environment { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public virtual ICollection<CertificateSampleTest> CertificateSampleTests { get; set; }
         public virtual ICollection<Course> Courses { get; set; }

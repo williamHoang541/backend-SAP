@@ -1,4 +1,4 @@
-﻿using SAPelearning_bakend.DTO.UserDTO;
+﻿using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.UserDTO;
 using SWD.SAPelearning.Repository.Models;
 
@@ -6,7 +6,7 @@ namespace SWD.SAPelearning.Repository
 {
     public interface IUser
     {
-        Task<List<User>> GetAllUsers(string filterOn = null,string filterQuery = null,string sortBy = null,bool? isAscending = null,  int pageNumber = 1,int pageSize = 10);
+        Task<List<User>> GetAllUsers(GetAllDTO request);
         Task<string> LoginApp(LoginDTO request);
         Task<string> LoginWeb(LoginDTO request);
         Task<User> Registration(RegisterDTO request);

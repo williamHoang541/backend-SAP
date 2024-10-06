@@ -35,12 +35,12 @@ namespace SWD.SAPelearning.API.Controllers
         
         [AllowAnonymous]
         [Route("create-attempt")]
-        [HttpGet]
-        public async Task<IActionResult> CreateAttemp(string userId)
+        [HttpPost]
+        public async Task<IActionResult> CreateAttempt(CreateAttemptDTO request)
         {
             try
             {
-                var a = await this.certificate_test_attempt.CreateAttemp(userId);
+                var a = await this.certificate_test_attempt.CreateAttempt(request);
                 return Ok(a);
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace SWD.SAPelearning.API.Controllers
 
         [AllowAnonymous]
         [Route("update-status-by-attempt-id")]
-        [HttpPatch] // Use POST or PUT for updates
+        [HttpPut] 
         public async Task<IActionResult> UpdateStatusByAttemptId(int attemptId)
         {
             try

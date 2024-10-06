@@ -7,7 +7,7 @@ using SWD.SAPelearning.Repository.DTO.UserDTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using SAPelearning_bakend.DTO.UserDTO;
+using SWD.SAPelearning.Repository.DTO;
 
 namespace SAPelearning_bakend.Repositories.Services
 {
@@ -24,58 +24,52 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
-        public async Task<List<User>> GetAllUsers(
-            string filterOn = null,
-            string filterQuery = null,
-            string sortBy = null,
-            bool? isAscending = null, // Change to nullable bool
-            int pageNumber = 1,
-            int pageSize = 10)
+        public async Task<List<User>> GetAllUsers(GetAllDTO request)
         {
             try
             {
                 var query = this.context.Users.AsQueryable();
 
                 // Filtering
-                if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery))
+                if (!string.IsNullOrEmpty(request.FilterOn) && !string.IsNullOrEmpty(request.FilterQuery))
                 {
-                    switch (filterOn.ToLower())
+                    switch (request.FilterOn.ToLower())
                     {
                         case "username":
-                            query = query.Where(u => u.Username.Contains(filterQuery));
+                            query = query.Where(u => u.Username.Contains(request.FilterQuery));
                             break;
                         case "email":
-                            query = query.Where(u => u.Email.Contains(filterQuery));
+                            query = query.Where(u => u.Email.Contains(request.FilterQuery));
                             break;
                         case "fullname":
-                            query = query.Where(u => u.Fullname.Contains(filterQuery));
+                            query = query.Where(u => u.Fullname.Contains(request.FilterQuery));
                             break;
                         case "education":
-                            query = query.Where(u => u.Education.Contains(filterQuery));
+                            query = query.Where(u => u.Education.Contains(request.FilterQuery));
                             break;
                         case "phonenumber":
-                            query = query.Where(u => u.Phonenumber.Contains(filterQuery));
+                            query = query.Where(u => u.Phonenumber.Contains(request.FilterQuery));
                             break;
                         case "gender":
-                            query = query.Where(u => u.Gender.Contains(filterQuery));
+                            query = query.Where(u => u.Gender.Contains(request.FilterQuery));
                             break;
                         case "registrationdate":
-                            if (DateTime.TryParse(filterQuery, out var regDate))
+                            if (DateTime.TryParse(request.FilterQuery, out var regDate))
                             {
                                 query = query.Where(u => u.RegistrationDate.HasValue && u.RegistrationDate.Value.Date == regDate.Date);
                             }
                             break;
                         case "role":
-                            query = query.Where(u => u.Role.Equals(filterQuery, StringComparison.OrdinalIgnoreCase));
+                            query = query.Where(u => u.Role.Equals(request.FilterQuery, StringComparison.OrdinalIgnoreCase));
                             break;
                         case "lastlogin":
-                            if (DateTime.TryParse(filterQuery, out var lastLogin))
+                            if (DateTime.TryParse(request.FilterQuery, out var lastLogin))
                             {
                                 query = query.Where(u => u.LastLogin.HasValue && u.LastLogin.Value.Date == lastLogin.Date);
                             }
                             break;
                         case "isonline":
-                            if (bool.TryParse(filterQuery, out var isOnline))
+                            if (bool.TryParse(request.FilterQuery, out var isOnline))
                             {
                                 query = query.Where(u => u.IsOnline == isOnline);
                             }
@@ -86,12 +80,12 @@ namespace SAPelearning_bakend.Repositories.Services
                 }
 
                 // Sorting
-                if (!string.IsNullOrEmpty(sortBy))
+                if (!string.IsNullOrEmpty(request.SortBy))
                 {
-                    if (isAscending == true)
+                    if (request.IsAscending == true)
                     {
                         // Sort in ascending order
-                        query = sortBy.ToLower() switch
+                        query = request.SortBy.ToLower() switch
                         {
                             "username" => query.OrderBy(u => u.Username),
                             "email" => query.OrderBy(u => u.Email),
@@ -106,10 +100,10 @@ namespace SAPelearning_bakend.Repositories.Services
                             _ => query.OrderBy(u => u.Username) // Default sort
                         };
                     }
-                    else if (isAscending == false)
+                    else if (request.IsAscending == false)
                     {
                         // Sort in descending order
-                        query = sortBy.ToLower() switch
+                        query = request.SortBy.ToLower() switch
                         {
                             "username" => query.OrderByDescending(u => u.Username),
                             "email" => query.OrderByDescending(u => u.Email),
@@ -129,7 +123,7 @@ namespace SAPelearning_bakend.Repositories.Services
 
                 // Paging
                 var totalRecords = await query.CountAsync();
-                var users = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+                var users = await query.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize).ToListAsync();
 
                 return users;
             }

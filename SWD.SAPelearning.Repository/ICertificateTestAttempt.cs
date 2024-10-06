@@ -6,7 +6,8 @@ namespace SWD.SAPelearning.Repository
     public interface ICertificateTestAttempt
     {
         Task<List<CertificateTestAttempt>> GetAllCertificateTestAttempt();
-        Task<CertificateTestAttempt> CreateAttemp(string userId);
+        Task<CertificateTestAttempt> CreateAttempt(CreateAttemptDTO request);
+        Task<CertificateTestAttempt> UpdateAttempt(UpdateAttemptDTO request);
         Task<CertificateTestAttempt> UpdateStatusAttemptByUserId(string userId);
         Task<CertificateTestAttempt> UpdateStatusAttempt(int attemptId);
         Task<int> CountAttemptsByUserId(string userId);

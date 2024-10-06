@@ -1,4 +1,4 @@
-﻿namespace SAPelearning_bakend.DTO.UserDTO
+﻿namespace SWD.SAPelearning.Repository.DTO.UserDTO
 {
     public class CreateUserInstructorDTO
     {

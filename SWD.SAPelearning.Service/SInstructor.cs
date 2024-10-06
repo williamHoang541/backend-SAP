@@ -29,7 +29,6 @@ namespace SWD.SAPelearning.Service
 
                 throw new Exception($"{ex.Message}");
             }
-
         }
     }
 }

@@ -33,16 +33,20 @@ namespace SAPelearning_bakend.Repositories.Services
             }
         }
 
-        public async Task<CertificateTestAttempt> CreateAttemp(string userId)
+        public async Task<CertificateTestAttempt> CreateAttempt(CreateAttemptDTO request)
         {
             try
             {
                 // Create a new attempt
                 var attempt = new CertificateTestAttempt
                 {
-                    UserId = userId,
-                    AttemptDate = DateTime.Now,
-                    Status = true // Set status to true as per your requirements
+                    UserId = request.UserId,
+                    SampleTestId = request.SampleTestId,
+                    AttemptDate = DateTime.Now,   // Current date and time
+                    Score = 0,               // Set the score
+                    CorrectAnswers = 0, // Set the number of correct answers
+                    TotalAnswers = 80,  // Set the total number of answers
+                    Status = true                 // Set the status to true
                 };
 
                 // Save the new attempt to the database
@@ -55,7 +59,45 @@ namespace SAPelearning_bakend.Repositories.Services
             catch (Exception ex)
             {
                 throw new Exception($"{ex.Message}");
+            }
+        }
 
+        public async Task<CertificateTestAttempt> UpdateAttempt(UpdateAttemptDTO request)
+        {
+            try
+            {
+                // Find the existing attempt by its Id
+                var attempt = await this.context.CertificateTestAttempts
+                    .Where(a => a.Id == request.AttemptId)
+                    .FirstOrDefaultAsync();
+
+                if (attempt == null)
+                {
+                    throw new Exception("Attempt not found");
+                }
+
+                // Update the score if provided
+                if (request.Score.HasValue)
+                {
+                    attempt.Score = request.Score.Value;
+                }
+
+                // Update the correct answers if provided
+                if (request.CorrectAnswers.HasValue)
+                {
+                    attempt.CorrectAnswers = request.CorrectAnswers.Value;
+                }
+
+                // Update the attempt in the database
+                this.context.CertificateTestAttempts.Update(attempt);
+                await this.context.SaveChangesAsync();
+
+                // Return the updated attempt
+                return attempt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
             }
         }
 

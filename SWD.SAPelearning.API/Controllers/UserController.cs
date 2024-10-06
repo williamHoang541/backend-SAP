@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SAPelearning_bakend.DTO.UserDTO;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.UserDTO;
 
 
@@ -20,15 +20,9 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("api/users")]
-        public async Task<IActionResult> GetAll(
-            [FromQuery] string filterOn = null,
-            [FromQuery] string filterQuery = null,
-            [FromQuery] string sortBy = null,
-            [FromQuery] bool? isAscending = null, // Change to nullable bool
-            [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetAll([FromQuery] GetAllDTO request) 
         {
-            var users = await this.user.GetAllUsers(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
+            var users = await this.user.GetAllUsers(request);
 
             if (users == null || !users.Any())
             {

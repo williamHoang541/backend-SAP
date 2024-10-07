@@ -1,0 +1,14 @@
+# Ignore Visual Studio files
+.vs/
+*.csproj.user
+
+# Ignore build files
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Ignore other system-specific files
+.DS_Store
+Thumbs.db

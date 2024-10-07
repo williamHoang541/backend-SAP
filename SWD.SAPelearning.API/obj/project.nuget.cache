@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "30R0E82ar4E=",
+  "dgSpecHash": "ScN1qwA24ac=",
   "success": true,
-  "projectFilePath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj",
+  "projectFilePath": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lhh54\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\lhh54\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.15\\microsoft.aspnetcore.authentication.jwtbearer.6.0.15.nupkg.sha512",

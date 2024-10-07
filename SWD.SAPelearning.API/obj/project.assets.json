@@ -2687,11 +2687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj",
+      "projectUniqueName": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj",
       "projectName": "SWD.SAPelearning.API",
-      "projectPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj",
+      "projectPath": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj",
       "packagesPath": "C:\\Users\\lhh54\\.nuget\\packages\\",
-      "outputPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.API\\obj\\",
+      "outputPath": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2713,11 +2713,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj": {
-              "projectPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj"
+            "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj": {
+              "projectPath": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj"
             },
-            "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj": {
-              "projectPath": "D:\\swd\\SWD.SAPelearning.API\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj"
+            "D:\\swd\\backend-SAP\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj": {
+              "projectPath": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj"
             }
           }
         }

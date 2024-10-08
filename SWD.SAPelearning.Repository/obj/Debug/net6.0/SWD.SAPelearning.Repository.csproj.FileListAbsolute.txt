@@ -1,0 +1,15 @@
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\bin\Debug\net6.0\SWD.SAPelearning.Repository.deps.json
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\bin\Debug\net6.0\SWD.SAPelearning.Repository.runtimeconfig.json
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\bin\Debug\net6.0\SWD.SAPelearning.Repository.dll
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\bin\Debug\net6.0\SWD.SAPelearning.Repository.pdb
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.csproj.AssemblyReference.cache
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.AssemblyInfoInputs.cache
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.AssemblyInfo.cs
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.csproj.CoreCompileInputs.cache
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.sourcelink.json
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.dll
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\refint\SWD.SAPelearning.Repository.dll
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.pdb
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\SWD.SAPelearning.Repository.genruntimeconfig.cache
+D:\swd\backend-SAP\SWD.SAPelearning.Repository\obj\Debug\net6.0\ref\SWD.SAPelearning.Repository.dll

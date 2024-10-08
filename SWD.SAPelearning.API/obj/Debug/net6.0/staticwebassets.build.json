@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "z+ObxAVDqKb9/NMTur92mpn1jcGBAVEXxBYuhCmNqs0=",
+  "Source": "SWD.SAPelearning.API",
+  "BasePath": "_content/SWD.SAPelearning.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

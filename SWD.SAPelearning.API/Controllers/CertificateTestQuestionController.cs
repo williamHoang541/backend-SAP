@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO.CertificateQuestion;
+using SWD.SAPelearning.Repository.DTO.TestQuestion;
 
 
 namespace SWD.SAPelearning.API.Controllers
@@ -26,6 +28,57 @@ namespace SWD.SAPelearning.API.Controllers
                 return NotFound();
             }
             return Ok(a);
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public async Task<IActionResult> CreateTestQuestion([FromBody] CreateTestQuestionDTO request)
+        {
+            try
+            {
+                var result = await this.certificate_test_question.CreateTestQuestion(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        // PUT: api/CertificateTestQuestion/update
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> UpdateTestQuestion([FromBody] UpdateTestQuestionDTO request)
+        {
+            try
+            {
+                var result = await this.certificate_test_question.UpdateTestQuestion(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        // DELETE: api/CertificateTestQuestion/delete/{id}
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<IActionResult> DeleteTestQuestion(int id)
+        {
+            try
+            {
+                var result = await this.certificate_test_question.DeleteTestQuestion(id);
+                if (result)
+                {
+                    return Ok("Test question deleted successfully.");
+                }
+                return NotFound("Test question not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
     }
 }

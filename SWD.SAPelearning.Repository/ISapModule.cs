@@ -1,9 +1,14 @@
-﻿using SWD.SAPelearning.Repository.Models;
+﻿using SWD.SAPelearning.Repository.DTO.SapModuleDTO;
+using SWD.SAPelearning.Repository.Models;
 
 namespace SWD.SAPelearning.Repository
 {
     public interface ISapModule
     {
         Task<List<SapModule>> GetAllSapModule();
+        Task<SapModule> CreateSapModule(SapModuleDTO request);
+        Task<SapModule> UpdateSapModule(int id, SapModuleDTO request);
+        Task<bool> DeleteSapModule(int id);
+        Task<SapModuleDTO> GetSapModuleById(int id);
     }
 }

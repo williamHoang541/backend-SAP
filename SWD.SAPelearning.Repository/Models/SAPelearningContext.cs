@@ -66,8 +66,8 @@ namespace SWD.SAPelearning.Repository.Models
                     .WithMany(p => p.Certificates)
                     .UsingEntity<Dictionary<string, object>>(
                         "CertificateModule",
-                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Module"),
-                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Certificate"),
+                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("FK_CertificateModule_Module"),
+                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("FK_CertificateModule_Certificate"),
                         j =>
                         {
                             j.HasKey("CertificateId", "ModuleId");

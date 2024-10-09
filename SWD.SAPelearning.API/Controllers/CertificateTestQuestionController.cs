@@ -32,7 +32,7 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateTestQuestion([FromBody] CreateTestQuestionDTO request)
+        public async Task<IActionResult> CreateTestQuestion(CreateTestQuestionDTO request)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace SWD.SAPelearning.API.Controllers
         // PUT: api/CertificateTestQuestion/update
         [HttpPut]
         [Route("update")]
-        public async Task<IActionResult> UpdateTestQuestion([FromBody] UpdateTestQuestionDTO request)
+        public async Task<IActionResult> UpdateTestQuestion(UpdateTestQuestionDTO request)
         {
             try
             {

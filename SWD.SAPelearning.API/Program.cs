@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SWD.SAPelearning.Repository.Models;
 using SWD.SAPelearning.Repository;
 using SWD.SAPelearning.Services;
-using System.Collections.Generic;
 using System.Text;
 using SAPelearning_bakend.Repositories.Services;
 using SWD.SAPelearning.Service;
@@ -17,19 +18,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    //Add any other JSON serialization settings as needed
+    // Add any other JSON serialization settings as needed
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<SAPelearningContext>(op =>
-op.UseSqlServer(builder.Configuration.GetConnectionString("SAPelearning")));
-builder.Services.AddCors(p => p.AddPolicy("MyCors", buid =>
+    op.UseSqlServer(builder.Configuration.GetConnectionString("SAPelearning")));
+
+builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 {
-    buid.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
+// Dependency Injection for Services
 builder.Services.AddScoped<ICertificate, SCertificate>();
 builder.Services.AddScoped<ICertificateQuestion, SCertificateQuestion>();
 builder.Services.AddScoped<ICertificateSampletest, SCertificateSampletest>();
@@ -45,11 +48,10 @@ builder.Services.AddScoped<ISapModule, SSapModule>();
 builder.Services.AddScoped<ITopicArea, STopicArea>();
 builder.Services.AddScoped<IUser, SUser>();
 
-
+// Swagger Configuration
 builder.Services.AddSwaggerGen(option =>
 {
-
-    //set up jwt token authorize
+    // JWT Token Authorization setup
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -59,6 +61,7 @@ builder.Services.AddSwaggerGen(option =>
         BearerFormat = "JWT",
         Scheme = "Bearer"
     });
+
     option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -66,17 +69,22 @@ builder.Services.AddSwaggerGen(option =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
             new string[]{}
-    }
+        }
     });
 });
 
-// add jwt
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+// JWT Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;
     options.SaveToken = true;
@@ -90,9 +98,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+// Google Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddGoogle(options =>
+{
+    IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+    options.ClientId = googleAuthNSection["ClientId"];
+    options.ClientSecret = googleAuthNSection["ClientSecret"];
+});
+
+// Enable Swagger only in Development and Production environments
 var app = builder.Build();
 
-//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -109,10 +131,9 @@ app.UseHttpsRedirection();
 
 app.UseCors("MyCors");
 
-app.UseAuthentication();
+app.UseAuthentication();  // Authentication middleware
 
-
-app.UseAuthorization();
+app.UseAuthorization();   // Authorization middleware
 
 app.MapControllers();
 

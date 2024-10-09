@@ -21,7 +21,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-certificate-test-attempt")]
+        [Route("get-all")]
         public async Task<IActionResult> GetAll()
         {
 
@@ -34,7 +34,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
         
         [AllowAnonymous]
-        [Route("create-attempt")]
+        [Route("create")]
         [HttpPost]
         public async Task<IActionResult> CreateAttempt(CreateAttemptDTO request)
         {
@@ -51,7 +51,7 @@ namespace SWD.SAPelearning.API.Controllers
 
 
         [AllowAnonymous]
-        [Route("update-status-by-attempt-id")]
+        [Route("update-status")]
         [HttpPut] 
         public async Task<IActionResult> UpdateStatusByAttemptId(int attemptId)
         {
@@ -68,7 +68,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [AllowAnonymous]
-        [Route("count-attempts-by-user-id")]
+        [Route("count-attempts")]
         [HttpGet]
         public async Task<IActionResult> CountAttemptsByUserId(string userId)
         {

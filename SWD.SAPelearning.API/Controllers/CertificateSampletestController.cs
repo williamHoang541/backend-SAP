@@ -32,7 +32,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [AllowAnonymous]
-        [Route("create-sample-test")]
+        [Route("create")]
         [HttpPost]
         public async Task<IActionResult> CreateSampleTest(CreateSampleTestDTO request)
         {
@@ -48,7 +48,7 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         [AllowAnonymous]
-        [Route("delete-attempt")]
+        [Route("delete")]
         [HttpDelete]
         public async Task<IActionResult> DeleteAttempt(RemoveSDTO sampleId)
         {

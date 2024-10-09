@@ -31,7 +31,7 @@ namespace SWD.SAPelearning.API.Controllers
 
         [AllowAnonymous]
         [Route("update-Instructor")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> UpdateInstructor(string userId,  UpdateInstructorDTO updateInstructorDTO)
         {
             try

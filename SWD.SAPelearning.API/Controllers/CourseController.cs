@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 
 
 namespace SWD.SAPelearning.API.Controllers
@@ -26,6 +27,40 @@ namespace SWD.SAPelearning.API.Controllers
                 return NotFound();
             }
             return Ok(a);
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public async Task<IActionResult> CreateCourse([FromBody] CourseDTO request)
+        {
+            if (request == null)
+            {
+                return BadRequest("CourseDTO is null.");
+            }
+
+            try
+            {
+                var createdCourse = await this.course.CreateCourse(request);
+                return CreatedAtAction(nameof(CreateCourse), new { id = createdCourse.Id }, createdCourse);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetCourseById(int id)
+        {
+            try
+            {
+                var course = await this.course.GetCourseById(id);
+                return Ok(course);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(404, $"Error: {ex.Message}");
+            }
         }
     }
 }

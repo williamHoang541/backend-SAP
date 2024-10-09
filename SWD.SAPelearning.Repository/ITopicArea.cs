@@ -1,4 +1,4 @@
-﻿using SWD.SAPelearning.Repository.DTO;
+﻿using SWD.SAPelearning.Repository.DTO.TopicAreaDTO;
 using SWD.SAPelearning.Repository.Models;
 
 namespace SWD.SAPelearning.Repository

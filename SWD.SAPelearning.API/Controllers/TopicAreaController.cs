@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
-using SWD.SAPelearning.Repository.DTO;
+using SWD.SAPelearning.Repository.DTO.TopicAreaDTO;
 
 namespace SWD.SAPelearning.API.Controllers
 {

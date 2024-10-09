@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
-using SWD.SAPelearning.Repository.DTO;
+using SWD.SAPelearning.Repository.DTO.TopicAreaDTO;
 using SWD.SAPelearning.Repository.Models;
 using System;
 using System.Collections.Generic;

@@ -40,32 +40,42 @@ namespace SAPelearning_bakend.Repositories.Services
             {
                 // Validate the request
                 if (request == null)
-                {
                     throw new ArgumentNullException(nameof(request), "CourseDTO cannot be null.");
-                }
 
                 // Check if a course with the same name already exists
                 var existingCourse = await context.Courses
                     .FirstOrDefaultAsync(c => c.CourseName.ToLower() == request.CourseName.ToLower());
 
                 if (existingCourse != null)
-                {
                     throw new Exception($"A course with the name '{request.CourseName}' already exists.");
-                }
-                if (request.Mode?.ToLower() != "online" && request.Mode?.ToLower() != "offline")
-                {
-                    throw new ArgumentException("Mode must be either 'Online' or 'Offline'.");
-                }
 
-                // Validation: TotalStudent limit based on Mode
+                // Validate Mode
+                if (request.Mode?.ToLower() != "online" && request.Mode?.ToLower() != "offline")
+                    throw new ArgumentException("Mode must be either 'Online' or 'Offline'.");
+
+                // Validate TotalStudent limits
                 if (request.Mode.ToLower() == "online" && request.TotalStudent > 80)
-                {
                     throw new ArgumentException("Online courses cannot have more than 80 students.");
-                }
                 if (request.Mode.ToLower() == "offline" && request.TotalStudent > 40)
-                {
                     throw new ArgumentException("Offline courses cannot have more than 40 students.");
-                }
+
+                if (!request.StartTime.HasValue)
+                    throw new ArgumentException("Start time is required.");
+
+                if (!request.EndTime.HasValue)
+                    throw new ArgumentException("End time is required.");
+
+                if (!request.EnrollmentDate.HasValue)
+                    throw new ArgumentException("Enrollment date is required.");
+
+                // Validate EnrollmentDate
+                if (request.EnrollmentDate >= request.StartTime.Value)
+                    throw new ArgumentException("Enrollment date must be before the start time of the course.");
+
+                // Check if endTime is at least 3 months after startTime
+                DateTime minimumEndTime = request.StartTime.Value.AddMonths(3);
+                if (request.EndTime < minimumEndTime)
+                    throw new ArgumentException("End time must be at least 3 months after the start time.");
 
                 // Map DTO to the Course entity
                 var newCourse = new Course
@@ -85,17 +95,17 @@ namespace SAPelearning_bakend.Repositories.Services
 
                 // Add the new course to the database
                 context.Courses.Add(newCourse);
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(); // This will set newCourse.Id
 
-                // Fetch Instructor and Certificate details to include in the DTO
-                var instructor = await context.Instructors.FindAsync(request.InstructorId);
-                var certificate = await context.Certificates.FindAsync(request.CertificateId);
+                // Fetch the instructor details
+                var instructor = await context.Instructors.FindAsync(newCourse.InstructorId);
 
                 // Return the created course as a DTO
                 return new CourseDTO
                 {
+                    CourseId = newCourse.Id,
                     InstructorId = newCourse.InstructorId,
-                    InstructorName = newCourse.Instructor?.Fullname ?? "Unknown Instructor",
+                    InstructorName = instructor?.Fullname ?? "Unknown Instructor", // Fetch the instructor name
                     CertificateId = newCourse.CertificateId,
                     CourseName = newCourse.CourseName,
                     StartTime = newCourse.StartTime,
@@ -105,19 +115,16 @@ namespace SAPelearning_bakend.Repositories.Services
                     TotalStudent = newCourse.TotalStudent,
                     EnrollmentDate = newCourse.EnrollmentDate,
                     Location = newCourse.Location,
-                    Status = newCourse.Status,
-                    CourseId = newCourse.Id
+                    Status = newCourse.Status
                 };
-            }
-            catch (DbUpdateException dbEx)
-            {
-                throw new Exception("There was an error saving the course to the database.", dbEx);
             }
             catch (Exception ex)
             {
                 throw new Exception($"An error occurred while creating the course: {ex.Message}");
             }
         }
+
+
 
 
 
@@ -227,12 +234,14 @@ namespace SAPelearning_bakend.Repositories.Services
                     throw new Exception($"A course with the name '{request.CourseName}' already exists.");
                 }
 
-                if (request.Mode?.ToLower() != "online" && request.Mode?.ToLower() != "offline")
+                // Check valid mode
+                if (string.IsNullOrWhiteSpace(request.Mode) ||
+                    (request.Mode.ToLower() != "online" && request.Mode.ToLower() != "offline"))
                 {
                     throw new ArgumentException("Mode must be either 'Online' or 'Offline'.");
                 }
 
-                // Validation: TotalStudent limit based on Mode
+                // Validate TotalStudent limit based on Mode
                 if (request.Mode.ToLower() == "online" && request.TotalStudent > 80)
                 {
                     throw new ArgumentException("Online courses cannot have more than 80 students.");
@@ -240,6 +249,22 @@ namespace SAPelearning_bakend.Repositories.Services
                 if (request.Mode.ToLower() == "offline" && request.TotalStudent > 40)
                 {
                     throw new ArgumentException("Offline courses cannot have more than 40 students.");
+                }
+
+                // Validate EnrollmentDate
+                if (request.EnrollmentDate >= request.StartTime)
+                {
+                    throw new ArgumentException("Enrollment date must be before the start time of the course.");
+                }
+
+                // Check if endTime is at least 3 months after startTime
+                if (request.StartTime.HasValue && request.EndTime.HasValue)
+                {
+                    DateTime minimumEndTime = request.StartTime.Value.AddMonths(3);
+                    if (request.EndTime < minimumEndTime)
+                    {
+                        throw new ArgumentException("End time must be at least 3 months after the start time.");
+                    }
                 }
 
                 // Update properties
@@ -265,6 +290,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 // Return the updated course as a DTO
                 return new CourseDTO
                 {
+                    CourseId = existingCourse.Id,
                     InstructorId = existingCourse.InstructorId,
                     InstructorName = instructor?.Fullname ?? "Unknown Instructor",
                     CertificateId = existingCourse.CertificateId,
@@ -276,8 +302,7 @@ namespace SAPelearning_bakend.Repositories.Services
                     TotalStudent = existingCourse.TotalStudent,
                     EnrollmentDate = existingCourse.EnrollmentDate,
                     Location = existingCourse.Location,
-                    Status = existingCourse.Status,
-                    CourseId = existingCourse.Id
+                    Status = existingCourse.Status
                 };
             }
             catch (DbUpdateException dbEx)
@@ -289,6 +314,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"An error occurred while updating the course: {ex.Message}");
             }
         }
+
 
 
 

@@ -1,53 +1,93 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\swd\\backend-SAP\\",
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|d:\\swd\\backend-sap\\swd.sapelearning.service\\suser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\models\\sapelearningcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\sapelearningcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|c:\\users\\admin\\documents\\minhhung\\swd392\\backend-sap\\swd.sapelearning.repository\\icourse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\icourse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.service\\scourse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|solutionrelative:swd.sapelearning.service\\scourse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\certificatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\certificatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.service\\scertificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|solutionrelative:swd.sapelearning.service\\scertificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\models\\certificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\certificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\dto\\coursedto\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\dto\\coursedto\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\dto\\certificatedto\\certificatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\dto\\certificatedto\\certificatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.service\\suser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|solutionrelative:swd.sapelearning.service\\suser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|d:\\swd\\backend-sap\\swd.sapelearning.repository\\iuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\iuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\iuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|d:\\swd\\backend-sap\\swd.sapelearning.repository\\models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|d:\\swd\\backend-sap\\swd.sapelearning.service\\senrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.service\\senrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{644292B0-A5DF-46CA-9243-F6BDE48B0245}|SWD.SAPelearning.Service\\SWD.SAPelearning.Service.csproj|solutionrelative:swd.sapelearning.service\\senrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\controllers\\instructorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\instructorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\instructorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|d:\\swd\\backend-sap\\swd.sapelearning.repository\\icertificatesampletest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.repository\\icertificatesampletest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93479877-AAAA-4F63-8A8B-C67388CBE5FB}|SWD.SAPelearning.Repository\\SWD.SAPelearning.Repository.csproj|solutionrelative:swd.sapelearning.repository\\icertificatesampletest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\controllers\\certificatetestquestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\certificatetestquestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\certificatetestquestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\controllers\\certificatequestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\certificatequestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\certificatequestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|d:\\swd\\backend-sap\\swd.sapelearning.api\\controllers\\coursematerialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\swd.sapelearning.api\\controllers\\coursematerialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4A6C01F7-B587-4727-B05D-DA2EB8F970F2}|SWD.SAPelearning.API\\SWD.SAPelearning.API.csproj|solutionrelative:swd.sapelearning.api\\controllers\\coursematerialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -58,32 +98,81 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\appsettings.json",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\appsettings.json",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\appsettings.json",
-              "RelativeToolTip": "SWD.SAPelearning.API\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-09T12:55:30.39Z",
+              "DocumentIndex": 3,
+              "Title": "ICourse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\ICourse.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\ICourse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\ICourse.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\ICourse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T05:03:08.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SCourse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SCourse.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SCourse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SCourse.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Service\\SCourse.cs",
+              "ViewState": "AQIAALwAAAAAAAAAAAAowMoAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T04:52:47.509Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SCertificate.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SCertificate.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SCertificate.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SCertificate.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Service\\SCertificate.cs",
+              "ViewState": "AQIAAPoAAAAAAAAAAAAkwJEAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T04:42:04.93Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SAPelearningContext.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\Models\\SAPelearningContext.cs",
+              "ViewState": "AQIAAB8AAAAAAAAAAAA8wCYAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T04:44:38.084Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Program.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Program.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Program.cs",
               "RelativeToolTip": "SWD.SAPelearning.API\\Program.cs",
               "ViewState": "AQIAAF0AAAAAAAAAAAAAAGgAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -92,133 +181,346 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SUser.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Service\\SUser.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SUser.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Service\\SUser.cs",
-              "RelativeToolTip": "SWD.SAPelearning.Service\\SUser.cs",
-              "ViewState": "AQIAANsBAAAAAAAAAAAUwP0BAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T12:38:04.964Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IUser.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\IUser.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\IUser.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\IUser.cs",
-              "RelativeToolTip": "SWD.SAPelearning.Repository\\IUser.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T12:30:32.474Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Enrollment.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
-              "RelativeToolTip": "SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T16:25:25.328Z",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\appsettings.json",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\appsettings.json",
+              "RelativeToolTip": "SWD.SAPelearning.API\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-09T12:55:30.39Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "SEnrollment.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Service\\SEnrollment.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SEnrollment.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Service\\SEnrollment.cs",
-              "RelativeToolTip": "SWD.SAPelearning.Service\\SEnrollment.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CourseController.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAkwFwAAABQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T16:25:18.34Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "InstructorController.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
-              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAACEAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T16:23:50.31Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T05:03:45.177Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\UserController.cs",
-              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "CertificateController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateController.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CertificateController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateController.cs",
+              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CertificateController.cs",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAowGkAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T16:23:41.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T05:09:49.534Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "ICertificateSampletest.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
-              "RelativeToolTip": "SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "Certificate.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Certificate.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\Certificate.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Certificate.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\Models\\Certificate.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAcwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T16:21:56.107Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T05:50:52.899Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "CourseMaterialController.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
-              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
+              "Title": "CertificateDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\DTO\\CertificateDTO\\CertificateDTO.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\DTO\\CertificateDTO\\CertificateDTO.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\DTO\\CertificateDTO\\CertificateDTO.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\DTO\\CertificateDTO\\CertificateDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T14:55:07.145Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T05:11:04.796Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "CertificateTestQuestionController.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
-              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
-              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
-              "ViewState": "AQIAADwAAAAAAAAAAAAUwCIAAAA8AAAA",
+              "Title": "CourseDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\DTO\\CourseDTO\\CourseDTO.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\DTO\\CourseDTO\\CourseDTO.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\DTO\\CourseDTO\\CourseDTO.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\DTO\\CourseDTO\\CourseDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T09:38:40.676Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T04:52:29.696Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "Course.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Course.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\Course.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Course.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\Models\\Course.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAywCIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T05:28:58.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SUser.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SUser.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SUser.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SUser.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Service\\SUser.cs",
+              "ViewState": "AQIAANsBAAAAAAAAAAAUwP0BAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T12:38:04.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IUser.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\IUser.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\IUser.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\IUser.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\IUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T12:30:32.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Enrollment.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\Models\\Enrollment.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T16:25:25.328Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SEnrollment.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SEnrollment.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Service\\SEnrollment.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Service\\SEnrollment.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Service\\SEnrollment.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T16:25:18.34Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "InstructorController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
+              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\InstructorController.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAACEAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T16:23:50.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\UserController.cs",
+              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T16:23:41.465Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ICertificateSampletest.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
+              "RelativeToolTip": "SWD.SAPelearning.Repository\\ICertificateSampletest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T16:21:56.107Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CourseMaterialController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
+              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CourseMaterialController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T14:55:07.145Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CertificateTestQuestionController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
+              "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
+              "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CertificateTestQuestionController.cs",
+              "ViewState": "AQIAADwAAAAAAAAAAAAUwCIAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T09:38:40.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
               "Title": "CertificateQuestionController.cs",
-              "DocumentMoniker": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateQuestionController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateQuestionController.cs",
               "RelativeDocumentMoniker": "SWD.SAPelearning.API\\Controllers\\CertificateQuestionController.cs",
-              "ToolTip": "D:\\swd\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateQuestionController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\MinhHung\\SWD392\\backend-SAP\\SWD.SAPelearning.API\\Controllers\\CertificateQuestionController.cs",
               "RelativeToolTip": "SWD.SAPelearning.API\\Controllers\\CertificateQuestionController.cs",
               "ViewState": "AQIAACwAAAAAAAAAAAAmwDEAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T09:38:37.791Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T09:38:37.791Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 925,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:8:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:17:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:20:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:25:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:26:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:27:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:28:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:30:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:31:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:32:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:33:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:34:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:35:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:36:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 925,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{f2e84780-2af1-11d1-a7fa-00a0c9110051}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{4a18f9d0-b838-11d0-93eb-00a0c90f2734}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{90243340-bd7a-11d0-93ef-00a0c90f2734}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0504ff91-9d61-11d0-a794-00a0c9110051}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:8:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1006,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:21:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:28:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             }
           ]
         }

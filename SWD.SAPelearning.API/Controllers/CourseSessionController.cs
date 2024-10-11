@@ -32,15 +32,16 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateCourseSession([FromBody] CourseSessionDTO request)
+        public async Task<IActionResult> CreateCourseSession([FromBody] CourseSessionCreateDTO request)
         {
             if (request == null)
             {
-                return BadRequest("CourseSessionDTO cannot be null.");
+                return BadRequest("CourseSessionCreateDTO cannot be null.");
             }
 
             try
             {
+                // Use the service to create the course session
                 var createdSession = await this.course_session.CreateCourseSession(request);
 
                 if (createdSession == null)
@@ -48,17 +49,23 @@ namespace SWD.SAPelearning.API.Controllers
                     return StatusCode(500, "There was a problem creating the course session.");
                 }
 
+                // Return the created session details (with related names) to the client
                 return Ok(createdSession);
             }
             catch (ArgumentNullException ex)
             {
                 return BadRequest($"Invalid input: {ex.Message}");
             }
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Input error: {ex.Message}");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
 
 
         // Get course session by ID

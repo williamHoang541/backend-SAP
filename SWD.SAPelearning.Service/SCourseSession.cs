@@ -36,7 +36,7 @@ namespace SAPelearning_bakend.Repositories.Services
 
 
 
-        public async Task<CourseSessionDTO> CreateCourseSession(CourseSessionDTO request)
+        public async Task<CourseSessionDTO> CreateCourseSession(CourseSessionCreateDTO request)
         {
             try
             {
@@ -81,19 +81,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 await context.SaveChangesAsync();
 
                 // Return the created session as a DTO
-                return new CourseSessionDTO
-                {
-                    CourseId = newSession.CourseId,
-                    CourseName = course.CourseName, // Fetch Course Name from the course entity
-                    InstructorId = newSession.InstructorId,
-                    InstructorName = instructor.Fullname, // Fetch Instructor Name from the instructor entity
-                    TopicId = newSession.TopicId,
-                    TopicName = topic.TopicName, // Fetch Topic Name from the topic entity
-                    SessionName = newSession.SessionName,
-                    SessionDescription = newSession.SessionDescription,
-                    SessionDate = newSession.SessionDate,
-                    Status = newSession.Status
-                };
+                return await GetCourseSessionById(newSession.Id);
             }
             catch (Exception ex)
             {

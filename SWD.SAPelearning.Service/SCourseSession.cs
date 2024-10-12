@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.CourseSessionDTO;
 using SWD.SAPelearning.Repository.Models;
 
@@ -19,19 +20,145 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
-        public async Task<List<CourseSession>> GetAllCourseSession()
+        public async Task<List<CourseSessionDTO>> GetAllCourseSessionsAsync(GetAllDTO getAllDTO)
         {
-            try
-            {
-                var a = await this.context.CourseSessions.ToListAsync();
-                return a;
-            }
-            catch (Exception ex)
-            {
+            IQueryable<CourseSession> query = context.CourseSessions
+                .Include(cs => cs.Course)
+                .Include(cs => cs.Instructor)
+                .Include(cs => cs.Topic)
+                .AsQueryable();
 
-                throw new Exception($"{ex.Message}");
+            // Filtering
+            if (!string.IsNullOrWhiteSpace(getAllDTO.FilterOn) && !string.IsNullOrWhiteSpace(getAllDTO.FilterQuery))
+            {
+                switch (getAllDTO.FilterOn.ToLower())
+                {
+                    case "courseid":
+                        if (int.TryParse(getAllDTO.FilterQuery, out int courseId))
+                        {
+                            query = query.Where(cs => cs.CourseId == courseId);
+                        }
+                        break;
+                    case "coursename":
+                        query = query.Where(cs => cs.Course.CourseName.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "instructorid":
+                        if (int.TryParse(getAllDTO.FilterQuery, out int instructorId))
+                        {
+                            query = query.Where(cs => cs.InstructorId == instructorId);
+                        }
+                        break;
+                    case "instructorname":
+                        query = query.Where(cs => cs.Instructor.Fullname.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "topicid":
+                        if (int.TryParse(getAllDTO.FilterQuery, out int topicId))
+                        {
+                            query = query.Where(cs => cs.TopicId == topicId);
+                        }
+                        break;
+                    case "topicname":
+                        query = query.Where(cs => cs.Topic.TopicName.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "sessionname":
+                        query = query.Where(cs => cs.SessionName.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "sessiondate":
+                        if (DateTime.TryParse(getAllDTO.FilterQuery, out DateTime sessionDate))
+                        {
+                            query = query.Where(cs => cs.SessionDate >= sessionDate);
+                        }
+                        break;
+                    case "status":
+                        if (bool.TryParse(getAllDTO.FilterQuery, out bool status))
+                        {
+                            query = query.Where(cs => cs.Status == status);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
 
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(getAllDTO.SortBy))
+            {
+                // Handle null IsAscending by defaulting to true if it's not specified
+                bool isAscending = getAllDTO.IsAscending ?? true;
+
+                switch (getAllDTO.SortBy.ToLower())
+                {
+                    case "sessiondate":
+                        query = isAscending
+                            ? query.OrderBy(s => s.SessionDate) // true for ascending
+                            : query.OrderByDescending(s => s.SessionDate); // false for descending
+                        break;
+
+                    case "instructorid":
+                        query = isAscending
+                            ? query.OrderBy(s => s.InstructorId) // true for ascending
+                            : query.OrderByDescending(s => s.InstructorId); // false for descending
+                        break;
+
+                    case "sessionname":
+                        query = isAscending
+                            ? query.OrderBy(s => s.SessionName) // true for ascending
+                            : query.OrderByDescending(s => s.SessionName); // false for descending
+                        break;
+                    case "courseid":
+                        if (int.TryParse(getAllDTO.FilterQuery, out int courseId))
+                        {
+                            query = query.Where(cs => cs.CourseId == courseId);
+                        }
+                        break;
+                    case "topicid":
+                        if (int.TryParse(getAllDTO.FilterQuery, out int topicId))
+                        {
+                            query = query.Where(cs => cs.TopicId == topicId);
+                        }
+                        break;
+                    case "status":
+                        query = isAscending
+                            ? query.OrderBy(s => s.Status) // true for ascending
+                            : query.OrderByDescending(s => s.Status); // false for descending
+                        break;
+
+                    default:
+                        // Default to sorting by SessionDate if the SortBy property is invalid
+                        query = isAscending
+                            ? query.OrderBy(s => s.SessionDate) // true for ascending
+                            : query.OrderByDescending(s => s.SessionDate); // false for descending
+                        break;
+                }
+            }
+
+
+
+
+
+            // Pagination
+            int pageNumber = getAllDTO.PageNumber ?? 1;
+            int pageSize = getAllDTO.PageSize ?? 10;
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            // Fetch and project to DTO
+            var courseSessions = await query
+                .Select(cs => new CourseSessionDTO
+                {
+                    CourseId = cs.CourseId,
+                    CourseName = cs.Course.CourseName,
+                    InstructorId = cs.InstructorId,
+                    InstructorName = cs.Instructor.Fullname,
+                    TopicId = cs.TopicId,
+                    TopicName = cs.Topic.TopicName,
+                    SessionName = cs.SessionName,
+                    SessionDescription = cs.SessionDescription,
+                    SessionDate = cs.SessionDate,
+                    Status = cs.Status
+                })
+                .ToListAsync();
+
+            return courseSessions;
         }
 
 

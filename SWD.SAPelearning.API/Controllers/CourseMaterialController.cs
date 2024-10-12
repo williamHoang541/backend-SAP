@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
+using SWD.SAPelearning.Repository.DTO.CourseMaterialDTO;
 using SWD.SAPelearning.Repository.DTO.CourseMaterialDTO;
 
 
@@ -18,20 +20,29 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCourseMaterials([FromQuery] GetAllDTO getAllDTO)
         {
-
-            var a = await this.course_material.GetAllCourseMaterial();
-            if (a == null)
+            // Validate pagination input
+            if (getAllDTO.PageNumber < 1 || getAllDTO.PageSize < 1)
             {
-                return NotFound();
+                return BadRequest("Page number and page size must be greater than 0.");
             }
-            return Ok(a);
+
+            // Fetch course materials using the service
+            List<CourseMaterialDTO> courseMaterials = await this.course_material.GetAllCourseMaterialsAsync(getAllDTO);
+
+            // Check if course materials are found
+            if (courseMaterials == null || courseMaterials.Count == 0)
+            {
+                return NotFound("No course materials found matching the criteria.");
+            }
+
+            return Ok(courseMaterials);
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateCourseMaterial([FromBody] CourseMaterialDTO request)
+        public async Task<IActionResult> CreateCourseMaterial([FromBody] CourseMateriaCreateDTO request)
         {
             if (request == null)
             {
@@ -83,7 +94,7 @@ namespace SWD.SAPelearning.API.Controllers
         // Update course material
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateCourseMaterial(int id, [FromBody] CourseMaterialDTO request)
+        public async Task<IActionResult> UpdateCourseMaterial(int id, [FromBody] CourseMateriaCreateDTO request)
         {
             if (request == null)
             {

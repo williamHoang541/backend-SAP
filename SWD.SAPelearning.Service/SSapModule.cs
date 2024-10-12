@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.SapModuleDTO;
 using SWD.SAPelearning.Repository.Models;
 
@@ -19,28 +20,88 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
-        public async Task<List<SapModule>> GetAllSapModule()
+        public async Task<List<SapModuleDTO>> GetAllSapModulesAsync(GetAllDTO getAllDTO)
         {
-            try
-            {
-                var a = await this.context.SapModules.ToListAsync();
-                return a;
-            }
-            catch (Exception ex)
-            {
+            IQueryable<SapModule> query = context.SapModules.AsQueryable();
 
-                throw new Exception($"{ex.Message}");
+            // Filtering
+            if (!string.IsNullOrWhiteSpace(getAllDTO.FilterOn) && !string.IsNullOrWhiteSpace(getAllDTO.FilterQuery))
+            {
+                switch (getAllDTO.FilterOn.ToLower())
+                {
+                    case "modulename":
+                        query = query.Where(m => m.ModuleName.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "moduledescription":
+                        query = query.Where(m => m.ModuleDescription.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "status":
+                        if (bool.TryParse(getAllDTO.FilterQuery, out bool status))
+                        {
+                            query = query.Where(m => m.Status == status);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
 
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(getAllDTO.SortBy))
+            {
+                // Handle null IsAscending by defaulting to true if it's not specified
+                bool isAscending = getAllDTO.IsAscending ?? true;
+
+                switch (getAllDTO.SortBy.ToLower())
+                {
+                    case "id":
+                        query = isAscending
+                            ? query.OrderBy(m => m.Id) // true for ascending
+                            : query.OrderByDescending(m => m.Id); // false for descending
+                        break;
+                    case "modulename":
+                        query = isAscending
+                            ? query.OrderBy(m => m.ModuleName) // true for ascending
+                            : query.OrderByDescending(m => m.ModuleName); // false for descending
+                        break;
+                    case "moduledescription":
+                        query = isAscending
+                            ? query.OrderBy(m => m.ModuleDescription) // true for ascending
+                            : query.OrderByDescending(m => m.ModuleDescription); // false for descending
+                        break;
+                    case "status":
+                        query = isAscending
+                            ? query.OrderBy(m => m.Status) // true for ascending
+                            : query.OrderByDescending(m => m.Status); // false for descending
+                        break;
+                    default:
+                        // Default to sorting by ModuleName if the SortBy property is invalid
+                        query = isAscending
+                            ? query.OrderBy(m => m.ModuleName) // true for ascending
+                            : query.OrderByDescending(m => m.ModuleName); // false for descending
+                        break;
+                }
+            }
+
+            // Execute the query and map the results to DTOs
+            var sapModules = await query.ToListAsync();
+            return sapModules.Select(m => new SapModuleDTO
+            {
+                Id = m.Id,
+                ModuleName = m.ModuleName,
+                ModuleDescription = m.ModuleDescription,
+                Status = m.Status
+            }).ToList();
         }
-        public async Task<SapModule> CreateSapModule(SapModuleDTO request)
+
+        public async Task<SapModuleDTO> CreateSapModule(SapModuleCreateDTO request)
         {
             try
             {
                 // Validate input
                 if (request == null)
                 {
-                    throw new ArgumentNullException(nameof(request), "SapModuleDTO cannot be null.");
+                    throw new ArgumentNullException(nameof(request), "SapModuleCreateDTO cannot be null.");
                 }
 
                 // Check if a module with the same name already exists (case-insensitive)
@@ -57,15 +118,21 @@ namespace SAPelearning_bakend.Repositories.Services
                 {
                     ModuleName = request.ModuleName,
                     ModuleDescription = request.ModuleDescription,
-                    Status = request.Status
+                    Status = request.Status ?? true // Default to active if not specified
                 };
 
-                // Add new module to the context
-                await context.SapModules.AddAsync(sapModule);
+                // Add the new module to the context
+                context.SapModules.Add(sapModule);
                 await context.SaveChangesAsync();
 
-                // Return the newly created module
-                return sapModule;
+                // Return the created module as a DTO
+                return new SapModuleDTO
+                {
+                    Id = sapModule.Id,
+                    ModuleName = sapModule.ModuleName,
+                    ModuleDescription = sapModule.ModuleDescription,
+                    Status = sapModule.Status
+                };
             }
             catch (DbUpdateException dbEx)
             {
@@ -81,22 +148,24 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
-        public async Task<SapModule> UpdateSapModule(int id, SapModuleDTO request)
+        public async Task<SapModuleDTO> UpdateSapModule(int id, SapModuleCreateDTO request)
         {
             try
             {
+                // Validate input
                 if (request == null)
                 {
-                    throw new ArgumentNullException(nameof(request), "SapModuleDTO cannot be null.");
+                    throw new ArgumentNullException(nameof(request), "SapModuleCreateDTO cannot be null.");
                 }
 
+                // Find the existing module by ID
                 var existingModule = await context.SapModules.FindAsync(id);
                 if (existingModule == null)
                 {
                     throw new Exception($"No module found with ID {id}.");
                 }
 
-                // Check if the module name is already taken (excluding the current module)
+                // Check if the new module name is already taken (excluding the current module)
                 var duplicateModule = await context.SapModules
                     .Where(m => m.ModuleName.ToLower() == request.ModuleName.ToLower() && m.Id != id)
                     .FirstOrDefaultAsync();
@@ -106,15 +175,22 @@ namespace SAPelearning_bakend.Repositories.Services
                     throw new Exception($"A module with the name '{request.ModuleName}' already exists.");
                 }
 
-                // Update the properties
+                // Update properties of the existing module
                 existingModule.ModuleName = request.ModuleName;
                 existingModule.ModuleDescription = request.ModuleDescription;
                 existingModule.Status = request.Status;
 
-                // Save changes
+                // Save changes to the database
                 await context.SaveChangesAsync();
 
-                return existingModule;
+                // Return the updated module as a DTO
+                return new SapModuleDTO
+                {
+                    Id = existingModule.Id,
+                    ModuleName = existingModule.ModuleName,
+                    ModuleDescription = existingModule.ModuleDescription,
+                    Status = existingModule.Status
+                };
             }
             catch (DbUpdateException dbEx)
             {
@@ -126,6 +202,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"An error occurred while updating the SapModule: {errorMessage}");
             }
         }
+
 
         public async Task<bool> DeleteSapModule(int id)
         {
@@ -167,6 +244,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 // Map the entity to the DTO
                 return new SapModuleDTO
                 {
+                    Id = module.Id,
                     ModuleName = module.ModuleName,
                     ModuleDescription = module.ModuleDescription,
                     Status = (bool)module.Status

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
+using SWD.SAPelearning.Repository.DTO.CertificateDTO;
 
 namespace SWD.SAPelearning.API.Controllers
 {
@@ -16,19 +18,35 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllDTO getAllDTO)
         {
-
-            var a = await this.certificate.GetAllCertificate();
-            if (a == null)
+            try
             {
-                return NotFound();
+                // Validate or set default values
+                getAllDTO.PageSize ??= 10; // Default page size to 10 if not specified
+                getAllDTO.PageNumber ??= 1; // Default page number to 1 if not specified
+
+                // Call the service to retrieve the data with sorting and filtering applied
+                var certificates = await this.certificate.GetAllCertificateAsync(getAllDTO);
+
+                // Check if the result is empty
+                if (certificates == null || !certificates.Any())
+                {
+                    return NotFound("No certificates found");
+                }
+
+                // Return the result
+                return Ok(certificates);
             }
-            return Ok(a);
+            catch (Exception ex)
+            {
+                // Handle exception and return a bad request with error details
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // GET: api/certificate/{id}
-        [HttpGet]
+            // GET: api/certificate/{id}
+            [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetCertificateById(int id)
         {
@@ -49,7 +67,7 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateCertificate([FromBody] CertificateDTO request)
+        public async Task<IActionResult> CreateCertificate([FromBody] CertificateCreateDTO request)
         {
             if (request == null)
             {
@@ -78,7 +96,7 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> UpdateCertificate(int id, [FromBody] CertificateDTO request)
+        public async Task<IActionResult> UpdateCertificate(int id, [FromBody] CertificateCreateDTO request)
         {
             if (request == null)
             {

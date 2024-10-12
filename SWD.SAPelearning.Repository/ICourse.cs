@@ -6,7 +6,9 @@ namespace SWD.SAPelearning.Repository
     public interface ICourse
     {
         Task<List<Course>> GetAllCourse();
-        Task<Course> CreateCourse(CourseDTO request);
-        Task<Course> GetCourseById(int id);
+        Task<CourseDTO> CreateCourse(CourseDTO request);
+        Task<CourseDTO> UpdateCourse(int id, CourseDTO request);
+        Task<bool> DeleteCourse(int id);
+        Task<CourseDTO> GetCourseById(int id);
     }
 }

@@ -5,6 +5,11 @@ namespace SWD.SAPelearning.Repository.Models
 {
     public partial class Enrollment
     {
+        public Enrollment()
+        {
+            Payments = new HashSet<Payment>();
+        }
+
         public int Id { get; set; }
         public string? UserId { get; set; }
         public int? CourseId { get; set; }
@@ -14,7 +19,7 @@ namespace SWD.SAPelearning.Repository.Models
         public string? Status { get; set; }
 
         public virtual Course? Course { get; set; }
-        public virtual Payment? Payment { get; set; }
         public virtual User? User { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

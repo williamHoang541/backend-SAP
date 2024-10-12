@@ -33,6 +33,7 @@ builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 }));
 
 // Dependency Injection for Services
+builder.Services.AddScoped<IAuth, SAuth>();
 builder.Services.AddScoped<ICertificate, SCertificate>();
 builder.Services.AddScoped<ICertificateQuestion, SCertificateQuestion>();
 builder.Services.AddScoped<ICertificateSampletest, SCertificateSampletest>();
@@ -110,6 +111,7 @@ builder.Services.AddAuthentication(options =>
     IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
     options.ClientId = googleAuthNSection["ClientId"];
     options.ClientSecret = googleAuthNSection["ClientSecret"];
+    options.CallbackPath = "/signin-google";
 });
 
 // Enable Swagger only in Development and Production environments

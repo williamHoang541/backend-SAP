@@ -36,7 +36,7 @@ namespace SWD.SAPelearning.Repository.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=MSI;uid=sa;pwd=12345;database=SAPelearning;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("Server=MSI;Database=SAPelearning;User Id=sa;Password=12345;");
             }
         }
 
@@ -66,8 +66,8 @@ namespace SWD.SAPelearning.Repository.Models
                     .WithMany(p => p.Certificates)
                     .UsingEntity<Dictionary<string, object>>(
                         "CertificateModule",
-                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("FK_CertificateModule_Module"),
-                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("FK_CertificateModule_Certificate"),
+                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Module"),
+                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Certificate"),
                         j =>
                         {
                             j.HasKey("CertificateId", "ModuleId");
@@ -242,11 +242,6 @@ namespace SWD.SAPelearning.Repository.Models
                     .HasForeignKey(d => d.CourseId)
                     .HasConstraintName("FK_Enrollment_Course");
 
-                entity.HasOne(d => d.Payment)
-                    .WithMany(p => p.Enrollments)
-                    .HasForeignKey(d => d.PaymentId)
-                    .HasConstraintName("FK_Enrollment_Payment");
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Enrollments)
                     .HasForeignKey(d => d.UserId)
@@ -288,6 +283,11 @@ namespace SWD.SAPelearning.Repository.Models
                 entity.Property(e => e.Status)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Enrollment)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.EnrollmentId)
+                    .HasConstraintName("FK_Payment_Enrollment");
             });
 
             modelBuilder.Entity<SapModule>(entity =>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.TopicAreaDTO;
 
 namespace SWD.SAPelearning.API.Controllers
@@ -17,15 +18,17 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllDTO getAllDTO)
         {
-
-            var a = await this.topic_area.GetAllTopicArea();
-            if (a == null)
+            try
             {
-                return NotFound();
+                var topicAreas = await this.topic_area.GetAllTopicAreasAsync(getAllDTO);
+                return Ok(topicAreas);
             }
-            return Ok(a);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
         [HttpGet]
         [Route("{id}")]
@@ -53,17 +56,17 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateTopicArea([FromBody] TopicAreaDTO request)
+        public async Task<IActionResult> CreateTopicArea([FromBody] TopicAreaCreateDTO request)
         {
             if (request == null)
             {
-                return BadRequest("TopicAreaDTO is null.");
+                return BadRequest("TopicAreaCreateDTO is null.");
             }
 
             try
             {
                 var createdTopicArea = await this.topic_area.CreateTopicArea(request);
-                return CreatedAtAction(nameof(CreateTopicArea), new { id = createdTopicArea.CertificateId }, createdTopicArea);
+                return CreatedAtAction(nameof(GetById), new { id = createdTopicArea.Id }, createdTopicArea);
             }
             catch (Exception ex)
             {
@@ -73,11 +76,11 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateTopicArea(int id, [FromBody] TopicAreaDTO request)
+        public async Task<IActionResult> UpdateTopicArea(int id, [FromBody] TopicAreaCreateDTO request)
         {
             if (request == null)
             {
-                return BadRequest("TopicAreaDTO is null.");
+                return BadRequest("TopicAreaCreateDTO is null.");
             }
 
             try
@@ -89,7 +92,7 @@ namespace SWD.SAPelearning.API.Controllers
                     return NotFound($"TopicArea with ID {id} not found.");
                 }
 
-                return Ok(updatedTopicArea); // Return the updated topic area
+                return Ok(updatedTopicArea);
             }
             catch (Exception ex)
             {

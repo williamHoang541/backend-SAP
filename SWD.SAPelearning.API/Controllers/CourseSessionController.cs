@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.CourseSessionDTO;
 
 
@@ -18,15 +19,24 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCourseSessions([FromQuery] GetAllDTO getAllDTO)
         {
-
-            var a = await this.course_session.GetAllCourseSession();
-            if (a == null)
+            // Validate the input if necessary
+            if (getAllDTO.PageNumber < 1 || getAllDTO.PageSize < 1)
             {
-                return NotFound();
+                return BadRequest("Page number and page size must be greater than 0.");
             }
-            return Ok(a);
+
+            // Fetch the course sessions using the service
+            List<CourseSessionDTO> courseSessions = await this.course_session.GetAllCourseSessionsAsync(getAllDTO);
+
+            // Check if any course sessions are found
+            if (courseSessions == null || courseSessions.Count == 0)
+            {
+                return NotFound("No course sessions found matching the criteria.");
+            }
+
+            return Ok(courseSessions);
         }
 
 

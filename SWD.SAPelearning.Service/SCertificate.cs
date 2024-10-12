@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
+using SWD.SAPelearning.Repository.DTO.CertificateDTO;
 using SWD.SAPelearning.Repository.Models;
 
 
@@ -19,22 +21,124 @@ namespace SWD.SAPelearning.Services
         }
 
 
-        public async Task<List<Certificate>> GetAllCertificate()
+        public async Task<List<CertificateDTO>> GetAllCertificateAsync(GetAllDTO getAllDTO)
         {
-            try
-            {
-                var a = await this.context.Certificates.ToListAsync();
-                return a;
-            }
-            catch (Exception ex)
-            {
+            // Start with the base query
+            IQueryable<Certificate> query = context.Certificates
+                .Include(c => c.Modules) // Assuming there is a Modules collection
+                .AsQueryable();
 
-                throw new Exception($"{ex.Message}");
+            // Filtering
+            if (!string.IsNullOrWhiteSpace(getAllDTO.FilterOn) && !string.IsNullOrWhiteSpace(getAllDTO.FilterQuery))
+            {
+                switch (getAllDTO.FilterOn.ToLower())
+                {
+                    case "certificatename":
+                        query = query.Where(c => c.CertificateName.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "level":
+                        query = query.Where(c => c.Level.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "environment":
+                        query = query.Where(c => c.Environment.Contains(getAllDTO.FilterQuery));
+                        break;
+                    case "status":
+                        if (bool.TryParse(getAllDTO.FilterQuery, out bool status))
+                        {
+                            query = query.Where(c => c.Status == status);
+                        }
+                        break;
+                    case "moduleid": // New case for filtering by ModuleId
+                        if (int.TryParse(getAllDTO.FilterQuery, out int moduleId))
+                        {
+                            query = query.Where(c => c.Modules.Any(m => m.Id == moduleId));
+                        }
+                        break;
+                    // Additional filtering options can be added here
+                    default:
+                        break;
+                }
             }
 
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(getAllDTO.SortBy))
+            {
+                // Handle null IsAscending by defaulting to true if it's not specified
+                bool isAscending = getAllDTO.IsAscending ?? true;
+
+                switch (getAllDTO.SortBy.ToLower())
+                {
+                    case "id":
+                        query = isAscending
+                            ? query.OrderBy(c => c.Id)
+                            : query.OrderByDescending(c => c.Id);
+                        break;
+                    case "certificatename":
+                        query = isAscending
+                            ? query.OrderBy(c => c.CertificateName)
+                            : query.OrderByDescending(c => c.CertificateName);
+                        break;
+                    case "description":
+                        query = isAscending
+                            ? query.OrderBy(c => c.Description)
+                            : query.OrderByDescending(c => c.Description);
+                        break;
+                    case "level":
+                        query = isAscending
+                            ? query.OrderBy(c => c.Level)
+                            : query.OrderByDescending(c => c.Level);
+                        break;
+                    case "environment":
+                        query = isAscending
+                            ? query.OrderBy(c => c.Environment)
+                            : query.OrderByDescending(c => c.Environment);
+                        break;
+                    case "status":
+                        query = isAscending
+                            ? query.OrderBy(c => c.Status)
+                            : query.OrderByDescending(c => c.Status);
+                        break;
+                    default:
+                        // Default to sorting by Id if the SortBy property is invalid
+                        query = isAscending
+                            ? query.OrderBy(c => c.Id)
+                            : query.OrderByDescending(c => c.Id);
+                        break;
+                }
+            }
+
+
+            // Pagination
+            int pageNumber = getAllDTO.PageNumber ?? 1;
+            int pageSize = getAllDTO.PageSize ?? 10;
+
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            // Selecting the DTOs
+            var certificates = await query
+                .Select(c => new CertificateDTO
+                {
+                    Id = c.Id,
+                    CertificateName = c.CertificateName,
+                    Description = c.Description,
+                    Level = c.Level,
+                    Environment = c.Environment,
+                    Status = c.Status,
+                    ModuleIds = c.Modules.Select(m => m.Id).ToList() // Assuming Modules have Id property
+                })
+                .ToListAsync();
+
+            return certificates;
         }
 
-        public async Task<Certificate> CreateCertificate(CertificateDTO request)
+
+
+
+
+
+
+
+        public async Task<Certificate> CreateCertificate(CertificateCreateDTO request)
         {
             try
             {
@@ -107,7 +211,7 @@ namespace SWD.SAPelearning.Services
             }
         }
 
-        public async Task<CertificateDTO> UpdateCertificate(int id, CertificateDTO request)
+        public async Task<CertificateDTO> UpdateCertificate(int id, CertificateCreateDTO request)
         {
             try
             {
@@ -147,7 +251,7 @@ namespace SWD.SAPelearning.Services
 
                 // Map the updated certificate back to DTO
                 return new CertificateDTO
-                {
+                {Id = existingCertificate.Id,
                     CertificateName = existingCertificate.CertificateName,
                     Description = existingCertificate.Description,
                     Level = existingCertificate.Level,
@@ -190,6 +294,7 @@ namespace SWD.SAPelearning.Services
                 // Return the DTO with module IDs
                 return new CertificateDTO
                 {
+                    Id = certificate.Id,
                     CertificateName = certificate.CertificateName,
                     Description = certificate.Description,
                     Level = certificate.Level,

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.SapModuleDTO;
 
 
@@ -18,29 +19,28 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllDTO getAllDTO)
         {
-
-            var a = await this.certificate_module.GetAllSapModule();
-            if (a == null)
+            var modules = await this.certificate_module.GetAllSapModulesAsync(getAllDTO);
+            if (modules == null || !modules.Any())
             {
-                return NotFound();
+                return NotFound("No SAP modules found.");
             }
-            return Ok(a);
+            return Ok(modules);
         }
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateSapModule([FromBody] SapModuleDTO request)
+        public async Task<IActionResult> CreateSapModule([FromBody] SapModuleCreateDTO request)
         {
             if (request == null)
             {
-                return BadRequest("SapModuleDTO is null.");
+                return BadRequest("SapModuleCreateDTO is null.");
             }
 
             try
             {
                 var createdModule = await this.certificate_module.CreateSapModule(request);
-                return CreatedAtAction(nameof(CreateSapModule), new { id = createdModule.Id }, createdModule); // Return the created module with 201 status
+                return CreatedAtAction(nameof(GetSapModuleById), new { id = createdModule.Id }, createdModule);
             }
             catch (Exception ex)
             {
@@ -50,11 +50,20 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] SapModuleDTO request)
+        public async Task<IActionResult> Update(int id, [FromBody] SapModuleCreateDTO request)
         {
+            if (request == null)
+            {
+                return BadRequest("SapModuleCreateDTO is null.");
+            }
+
             try
             {
                 var updatedModule = await this.certificate_module.UpdateSapModule(id, request);
+                if (updatedModule == null)
+                {
+                    return NotFound($"Module with ID {id} not found.");
+                }
                 return Ok(updatedModule);
             }
             catch (Exception ex)

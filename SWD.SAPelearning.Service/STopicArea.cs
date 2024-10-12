@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SWD.SAPelearning.Repository;
+using SWD.SAPelearning.Repository.DTO;
 using SWD.SAPelearning.Repository.DTO.TopicAreaDTO;
 using SWD.SAPelearning.Repository.Models;
 using System;
@@ -23,21 +24,91 @@ namespace SWD.SAPelearning.Service
             _configuration = configuration;
         }
 
-        public async Task<List<TopicArea>> GetAllTopicArea()
+        public async Task<List<TopicAreaDTO>> GetAllTopicAreasAsync(GetAllDTO getAllDTO)
         {
             try
             {
-                var a = await this.context.TopicAreas.ToListAsync();
-                return a;
+                // Create the initial query
+                IQueryable<TopicArea> query = context.TopicAreas.AsQueryable();
+
+                // Filtering
+                if (!string.IsNullOrWhiteSpace(getAllDTO.FilterOn) && !string.IsNullOrWhiteSpace(getAllDTO.FilterQuery))
+                {
+                    switch (getAllDTO.FilterOn.ToLower())
+                    {
+                        case "certificateid":
+                            if (int.TryParse(getAllDTO.FilterQuery, out int certificateId))
+                            {
+                                query = query.Where(ta => ta.CertificateId == certificateId);
+                            }
+                            break;
+                        case "topicname":
+                            query = query.Where(ta => ta.TopicName.Contains(getAllDTO.FilterQuery));
+                            break;
+                        case "status":
+                            if (bool.TryParse(getAllDTO.FilterQuery, out bool status))
+                            {
+                                query = query.Where(ta => ta.Status == status);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                // Sorting
+                if (!string.IsNullOrWhiteSpace(getAllDTO.SortBy))
+                {
+                    bool isAscending = getAllDTO.IsAscending ?? true;
+
+                    switch (getAllDTO.SortBy.ToLower())
+                    {
+                        case "id":
+                            query = isAscending
+                                ? query.OrderBy(ta => ta.Id)
+                                : query.OrderByDescending(ta => ta.Id);
+                            break;
+                        case "topicname":
+                            query = isAscending
+                                ? query.OrderBy(ta => ta.TopicName)
+                                : query.OrderByDescending(ta => ta.TopicName);
+                            break;
+                        case "certificateid":
+                            query = isAscending
+                                ? query.OrderBy(ta => ta.CertificateId)
+                                : query.OrderByDescending(ta => ta.CertificateId);
+                            break;
+                        case "status":
+                            query = isAscending
+                                ? query.OrderBy(ta => ta.Status)
+                                : query.OrderByDescending(ta => ta.Status);
+                            break;
+                        default:
+                            query = isAscending
+                                ? query.OrderBy(ta => ta.Id) // Default sorting by Id
+                                : query.OrderByDescending(ta => ta.Id);
+                            break;
+                    }
+                }
+
+                // Fetching the data and projecting to TopicAreaDTO
+                var topicAreas = await query.Select(ta => new TopicAreaDTO
+                {
+                    Id = ta.Id,
+                    CertificateId = ta.CertificateId,
+                    TopicName = ta.TopicName,
+                    Status = ta.Status
+                }).ToListAsync();
+
+                return topicAreas;
             }
             catch (Exception ex)
             {
-
-                throw new Exception($"{ex.Message}");
+                throw new Exception($"An error occurred while retrieving Topic Areas: {ex.Message}");
             }
-
         }
-        public async Task<TopicAreaDTO> CreateTopicArea(TopicAreaDTO request)
+
+        public async Task<TopicAreaDTO> CreateTopicArea(TopicAreaCreateDTO request)
         {
             try
             {
@@ -85,6 +156,7 @@ namespace SWD.SAPelearning.Service
                 // Return the newly created Topic Area as DTO
                 return new TopicAreaDTO
                 {
+                    Id = topicArea.Id,
                     CertificateId = topicArea.CertificateId,
                     TopicName = topicArea.TopicName,
                     Status = topicArea.Status
@@ -119,6 +191,7 @@ namespace SWD.SAPelearning.Service
                 // Map the entity to the DTO
                 return new TopicAreaDTO
                 {
+                    Id = topicArea.Id,
                     CertificateId = topicArea.CertificateId, // Assuming there's a relationship with Certificate
                     TopicName = topicArea.TopicName,
                     Status = topicArea.Status
@@ -177,7 +250,7 @@ namespace SWD.SAPelearning.Service
             }
         }
 
-        public async Task<TopicAreaDTO> UpdateTopicArea(int id, TopicAreaDTO request)
+        public async Task<TopicAreaDTO> UpdateTopicArea(int id, TopicAreaCreateDTO request)
         {
             try
             {
@@ -214,7 +287,7 @@ namespace SWD.SAPelearning.Service
 
                 // Return the updated Topic Area as DTO
                 return new TopicAreaDTO
-                {
+                {Id = topicArea.Id,
                     CertificateId = topicArea.CertificateId,
                     TopicName = topicArea.TopicName,
                     Status = topicArea.Status

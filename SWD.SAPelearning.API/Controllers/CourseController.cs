@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
 using SWD.SAPelearning.Repository.DTO;
+using SWD.SAPelearning.Repository.DTO.CourseDTO;
+using SWD.SAPelearning.Services;
 
 
 namespace SWD.SAPelearning.API.Controllers
@@ -19,42 +21,59 @@ namespace SWD.SAPelearning.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCourses([FromQuery] GetAllDTO getAllDTO)
         {
-
-            var a = await this.course.GetAllCourse();
-            if (a == null)
+            // Validate the input if necessary
+            if (getAllDTO.PageNumber < 1 || getAllDTO.PageSize < 1)
             {
-                return NotFound();
+                return BadRequest("Page number and page size must be greater than 0.");
             }
-            return Ok(a);
+
+            // Fetch the courses using the service
+            List<CourseDTO> courses = await this.course.GetAllCourseAsync(getAllDTO);
+
+            // Check if courses are found
+            if (courses == null || courses.Count == 0)
+            {
+                return NotFound("No courses found matching the criteria.");
+            }
+
+            return Ok(courses);
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateCourse([FromBody] CourseDTO request)
+        public async Task<IActionResult> CreateCourse([FromBody] CourseCreateDTO request)
         {
             if (request == null)
             {
-                return BadRequest("CourseDTO cannot be null.");
+                return BadRequest("CourseCreateDTO cannot be null.");
             }
 
             try
             {
+                // Use the service to create the course
                 var createdCourse = await this.course.CreateCourse(request);
-                return CreatedAtAction(nameof(GetCourseById), new { id = createdCourse.CourseId }, createdCourse); // Use CourseId here
+
+                if (createdCourse == null)
+                {
+                    return StatusCode(500, "There was a problem creating the course.");
+                }
+
+                // Return the created course details to the client
+                return Ok(createdCourse);
             }
             catch (ArgumentNullException ex)
             {
-                return BadRequest(ex.Message); // Return 400 for null request
+                return BadRequest($"Invalid input: {ex.Message}");
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message); // Return 400 for validation errors
+                return BadRequest($"Input error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}"); // Return 500 for any other errors
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 
@@ -79,28 +98,37 @@ namespace SWD.SAPelearning.API.Controllers
         }
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateCourse(int id, [FromBody] CourseDTO request)
+        public async Task<IActionResult> UpdateCourse(int id, [FromBody] CourseCreateDTO request)
         {
+            if (request == null)
+            {
+                return BadRequest("CourseCreateDTO cannot be null.");
+            }
+
             try
             {
-                // Validate the request body
-                if (request == null)
-                {
-                    return BadRequest("CourseDTO cannot be null.");
-                }
-
-                // Call the service to update the course
+                // Use the service to update the course
                 var updatedCourse = await this.course.UpdateCourse(id, request);
 
-                return Ok(updatedCourse); // Return the updated course
+                if (updatedCourse == null)
+                {
+                    return StatusCode(500, "There was a problem updating the course.");
+                }
+
+                // Return the updated course details to the client
+                return Ok(updatedCourse);
             }
             catch (ArgumentNullException ex)
             {
-                return BadRequest(ex.Message); // Return 400 Bad Request if the input is null
+                return BadRequest($"Invalid input: {ex.Message}");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Input error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while updating the course: {ex.Message}"); // Handle unexpected errors
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 

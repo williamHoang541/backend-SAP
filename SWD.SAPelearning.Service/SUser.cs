@@ -164,9 +164,9 @@ namespace SAPelearning_bakend.Repositories.Services
         {
             try
             {
-                // Retrieve the user based on the username
+                // Retrieve the user based on the username or email
                 var user = await this.context.Users
-                    .Where(x => x.Username.Equals(request.Username))
+                    .Where(x => x.Username.Equals(request.Username) || x.Email.Equals(request.Username))
                     .FirstOrDefaultAsync();
 
                 if (user == null)
@@ -176,7 +176,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                     throw new Exception("INVALID PASSWORD");
 
-                // Check role: only allow student and instructor to log in on the app
+                // Check role: only allow student to log in on the app
                 if (user.Role != "student")
                 {
                     throw new Exception("STUDENT ALLOW ON APP");
@@ -190,8 +190,8 @@ namespace SAPelearning_bakend.Repositories.Services
                 this.context.Users.Update(user);
                 await this.context.SaveChangesAsync();
 
-                // Create and return token
-                var token = CreateToken(user);
+                // Create and return token (or any other mechanism, since JWT is not being used)
+                var token = CreateToken(user); // Update this as per your token generation
                 return token;
             }
             catch (Exception ex)
@@ -204,36 +204,36 @@ namespace SAPelearning_bakend.Repositories.Services
         {
             try
             {
-                // Truy xuất người dùng dựa trên tên đăng nhập
+                // Retrieve the user based on the username or email
                 var user = await this.context.Users
-                    .Where(x => x.Username.Equals(request.Username))
+                    .Where(x => x.Username.Equals(request.Username) || x.Email.Equals(request.Username))
                     .FirstOrDefaultAsync();
 
                 if (user == null)
                     throw new Exception("USER IS NOT FOUND");
 
-                // Kiểm tra mật khẩu
+                // Check if the password is correct
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                     throw new Exception("INVALID PASSWORD");
 
-                // Kiểm tra vai trò: chỉ cho phép admin và instructor đăng nhập
+                // Check role: only allow admin and instructor to log in on the web
                 if (user.Role != "admin" && user.Role != "instructor")
                 {
                     throw new Exception("ADMIN OR INSTRUCTOR ALLOW ON WEB");
                 }
 
-                // Đặt trạng thái người dùng là trực tuyến
+                // Set user status to online
                 user.IsOnline = true;
 
-                // Cập nhật thời gian đăng nhập cuối cùng
-                user.LastLogin = DateTime.Now; // hoặc DateTime.UtcNow nếu muốn theo giờ UTC
+                // Update LastLogin date/time
+                user.LastLogin = DateTime.Now; // Or DateTime.UtcNow if you want UTC time
 
-                // Cập nhật thông tin người dùng
+                // Update the user information
                 this.context.Users.Update(user);
                 await this.context.SaveChangesAsync();
 
-                // Tạo và trả về token
-                var token = CreateToken(user);
+                // Create and return token (or any other mechanism, since JWT is not being used)
+                var token = CreateToken(user); // Update this as per your token generation
                 return token;
             }
             catch (Exception ex)
@@ -241,6 +241,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception($"{ex.Message}");
             }
         }
+
 
         public async Task<User> Registration(RegisterDTO request)
         {

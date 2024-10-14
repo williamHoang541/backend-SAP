@@ -23,9 +23,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddDbContext<SAPelearningContext>(op =>
-    op.UseSqlServer(builder.Configuration.GetConnectionString("SAPelearning")));
+builder.Services.AddDbContext<SAPelearningdeployContext>(op =>
+   op.UseSqlServer(builder.Configuration.GetConnectionString("SAPelearning")));
 
 builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 {

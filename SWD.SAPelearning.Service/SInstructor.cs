@@ -10,9 +10,9 @@ namespace SWD.SAPelearning.Service
     {
         private readonly IConfiguration _configuration;
 
-        private readonly SAPelearningContext context;
+        private readonly SAPelearningdeployContext context;
 
-        public SInstructor(SAPelearningContext Context, IConfiguration configuration)
+        public SInstructor(SAPelearningdeployContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;

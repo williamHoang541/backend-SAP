@@ -11,9 +11,9 @@ namespace SAPelearning_bakend.Repositories.Services
     {
         private readonly IConfiguration _configuration;
 
-        private readonly SAPelearningContext context;
+        private readonly SAPelearningdeployContext context;
 
-        public SCourseMaterial(SAPelearningContext Context, IConfiguration configuration)
+        public SCourseMaterial(SAPelearningdeployContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;

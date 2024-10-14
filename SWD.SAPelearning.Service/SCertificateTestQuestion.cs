@@ -10,9 +10,9 @@ namespace SAPelearning_bakend.Repositories.Services
     {
         private readonly IConfiguration _configuration;
 
-        private readonly SAPelearningContext context;
+        private readonly SAPelearningdeployContext context;
 
-        public SCertificateTestQuestion(SAPelearningContext Context, IConfiguration configuration)
+        public SCertificateTestQuestion(SAPelearningdeployContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;

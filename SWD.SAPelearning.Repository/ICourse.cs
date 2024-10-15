@@ -11,5 +11,6 @@ namespace SWD.SAPelearning.Repository
         Task<CourseDTO> CreateCourse(CourseCreateDTO request);
         Task<CourseDTO> UpdateCourse(int id, CourseCreateDTO request);
         Task<bool> DeleteCourse(int id);
+        Task<int> CountCoursesAsync();
     }
 }

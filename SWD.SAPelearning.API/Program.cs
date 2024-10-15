@@ -25,7 +25,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<SAPelearningdeployContext>(op =>
    op.UseSqlServer(builder.Configuration.GetConnectionString("SAPelearning")));
-
 builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 {
     build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();

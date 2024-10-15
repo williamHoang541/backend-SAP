@@ -456,6 +456,18 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
+        public async Task<int> CountCoursesAsync()
+        {
+            try
+            {
+                // Đếm số lượng khóa học trong cơ sở dữ liệu
+                return await context.Courses.CountAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while counting courses: {ex.Message}");
+            }
+        }
 
 
 

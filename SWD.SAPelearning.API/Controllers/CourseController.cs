@@ -40,8 +40,20 @@ namespace SWD.SAPelearning.API.Controllers
 
             return Ok(courses);
         }
-
-        [HttpPost]
+        [HttpGet("count")]
+        public async Task<IActionResult> GetCourseCount()
+        {
+            try
+            {
+                int totalCourses = await this.course.CountCoursesAsync();
+                return Ok(new { TotalCourses = totalCourses });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+            [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateCourse([FromBody] CourseCreateDTO request)
         {

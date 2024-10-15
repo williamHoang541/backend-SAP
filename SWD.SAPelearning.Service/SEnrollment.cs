@@ -193,7 +193,17 @@ namespace SAPelearning_bakend.Repositories.Services
 
             // Update status to Confirmed
             enrollment.Status = "Confirmed";
+            
+            var payment = await context.Payments
+        .FirstOrDefaultAsync(p => p.EnrollmentId == enrollmentId);
 
+            if (payment == null || payment.Status != "completed")
+            {
+                throw new InvalidOperationException("Payment must be completed to confirm enrollment.");
+            }
+
+            // Update status to Confirmed
+            enrollment.Status = "Confirmed";
             // Increment total students in the associated course
             var course = await context.Courses.FindAsync(enrollment.CourseId);
             if (course != null)

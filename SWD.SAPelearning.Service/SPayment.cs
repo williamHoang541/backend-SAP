@@ -9,9 +9,9 @@ namespace SAPelearning_bakend.Repositories.Services
     {
         private readonly IConfiguration _configuration;
 
-        private readonly SAPelearningdeployContext context;
+        private readonly SAPelearningAPIContext context;
 
-        public SPayment(SAPelearningdeployContext Context, IConfiguration configuration)
+        public SPayment(SAPelearningAPIContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;

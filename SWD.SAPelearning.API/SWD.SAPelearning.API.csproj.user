@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>http</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>D:\swd\backend-SAP\.github\workflows\SAPelearningAPI.yml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\swd\backend-SAP\.github\workflows\SWDSAPelearningAPI.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

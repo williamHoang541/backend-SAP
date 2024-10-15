@@ -12,9 +12,9 @@ namespace SWD.SAPelearning.Services
     {
         private readonly IConfiguration _configuration;
 
-        private readonly SAPelearningdeployContext context;
+        private readonly SAPelearningAPIContext context;
 
-        public SCertificate(SAPelearningdeployContext Context, IConfiguration configuration)
+        public SCertificate(SAPelearningAPIContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;

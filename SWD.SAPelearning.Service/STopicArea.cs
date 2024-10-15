@@ -16,9 +16,9 @@ namespace SWD.SAPelearning.Service
     {
         private readonly IConfiguration _configuration;
 
-        private readonly SAPelearningdeployContext context;
+        private readonly SAPelearningAPIContext context;
 
-        public STopicArea(SAPelearningdeployContext Context, IConfiguration configuration)
+        public STopicArea(SAPelearningAPIContext Context, IConfiguration configuration)
         {
             context = Context;
             _configuration = configuration;

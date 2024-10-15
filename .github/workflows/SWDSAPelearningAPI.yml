@@ -1,10 +1,10 @@
-name: Build and deploy .NET Core application to Web App SAPelearningAPI
+name: Build and deploy .NET Core application to Web App SWDSAPelearningAPI
 on:
   push:
     branches:
     - hoang
 env:
-  AZURE_WEBAPP_NAME: SAPelearningAPI
+  AZURE_WEBAPP_NAME: SWDSAPelearningAPI
   AZURE_WEBAPP_PACKAGE_PATH: SWD.SAPelearning.API\publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.SAPelearningAPI_5A65 }}
+        publish-profile: ${{ secrets.SWDSAPelearningAPI_A8BA }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

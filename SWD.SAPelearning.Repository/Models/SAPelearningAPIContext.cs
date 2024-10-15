@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SWD.SAPelearning.Repository.Models
 {
-    public partial class SAPelearningdeployContext : DbContext
+    public partial class SAPelearningAPIContext : DbContext
     {
-        public SAPelearningdeployContext()
+        public SAPelearningAPIContext()
         {
         }
 
-        public SAPelearningdeployContext(DbContextOptions<SAPelearningdeployContext> options)
+        public SAPelearningAPIContext(DbContextOptions<SAPelearningAPIContext> options)
             : base(options)
         {
         }
@@ -36,7 +36,7 @@ namespace SWD.SAPelearning.Repository.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:sapelearning.database.windows.net,1433;Initial Catalog=SAPelearningdeploy;Persist Security Info=False;User ID=sapelearning;Password=@Admin12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:sapelearning.database.windows.net,1433;Initial Catalog=SAPelearningAPI;Persist Security Info=False;User ID=sapelearning;Password=@Admin123");
             }
         }
 
@@ -66,8 +66,8 @@ namespace SWD.SAPelearning.Repository.Models
                     .WithMany(p => p.Certificates)
                     .UsingEntity<Dictionary<string, object>>(
                         "CertificateModule",
-                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Module"),
-                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CertificateModule_Certificate"),
+                        l => l.HasOne<SapModule>().WithMany().HasForeignKey("ModuleId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("FK_CertificateModule_Module"),
+                        r => r.HasOne<Certificate>().WithMany().HasForeignKey("CertificateId").OnDelete(DeleteBehavior.Cascade).HasConstraintName("FK_CertificateModule_Certificate"),
                         j =>
                         {
                             j.HasKey("CertificateId", "ModuleId");

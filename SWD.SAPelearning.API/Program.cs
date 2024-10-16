@@ -116,17 +116,21 @@ builder.Services.AddAuthentication(options =>
 // Enable Swagger only in Development and Production environments
 var app = builder.Build();
 
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+
     app.UseSwaggerUI();
 }
-
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+else
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/SAP/swagger.json", "SAPApi v1"));
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.RoutePrefix = string.Empty;
+    });
 }
+
 
 app.UseHttpsRedirection();
 
@@ -135,6 +139,8 @@ app.UseCors("MyCors");
 app.UseAuthentication();  // Authentication middleware
 
 app.UseAuthorization();   // Authorization middleware
+
+app.UseSwagger();
 
 app.MapControllers();
 

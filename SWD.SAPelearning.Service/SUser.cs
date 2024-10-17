@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Text;
 using SWD.SAPelearning.Repository.DTO;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace SAPelearning_bakend.Repositories.Services
 {
@@ -141,7 +143,7 @@ namespace SAPelearning_bakend.Repositories.Services
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Role, user.Role),
-                new Claim("userid", user.Id),
+                new Claim("id", user.Id),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
@@ -383,14 +385,27 @@ namespace SAPelearning_bakend.Repositories.Services
                     throw new Exception("Gender must be either 'Male' or 'Female'.");
                 }
 
-                // Update properties if the value is not null
+                // Check if the user wants to update the password
+                if (!string.IsNullOrEmpty(user.OldPassword) && !string.IsNullOrEmpty(user.NewPassword))
+                {
+                    // Verify the old password
+                    if (!BCrypt.Net.BCrypt.Verify(user.OldPassword, existingUser.Password))
+                    {
+                        throw new Exception("Current password is incorrect.");
+                    }
+
+                    // Băm và cập nhật mật khẩu mới
+                    existingUser.Password = BCrypt.Net.BCrypt.HashPassword(user.NewPassword);
+                }
+
+                // Cập nhật các thuộc tính nếu giá trị không null
                 existingUser.Email = user.Email ?? existingUser.Email;
                 existingUser.Fullname = user.Fullname ?? existingUser.Fullname;
                 existingUser.Education = user.Education ?? existingUser.Education;
                 existingUser.Phonenumber = user.PhoneNumber ?? existingUser.Phonenumber;
                 existingUser.Gender = user.Gender ?? existingUser.Gender;
 
-                // Update user in the database
+                // Cập nhật người dùng trong cơ sở dữ liệu
                 context.Users.Update(existingUser);
                 await context.SaveChangesAsync();
 
@@ -399,6 +414,30 @@ namespace SAPelearning_bakend.Repositories.Services
             catch (Exception ex)
             {
                 throw new Exception($"{ex.Message}");
+            }
+        }
+
+
+        public async Task<User> GetUserByID(string id)
+        {
+            try
+            {
+                // Tìm người dùng theo ID
+                var search = await this.context.Users
+                                               .FirstOrDefaultAsync(x => x.Id == id);
+
+                // Kiểm tra xem người dùng có tồn tại không
+                if (search == null)
+                {
+                    throw new Exception("USER NOT FOUND");
+                }
+
+                return search; // Trả về người dùng tìm thấy
+            }
+            catch (Exception ex)
+            {
+                // Ném ra ngoại lệ với thông báo lỗi
+                throw new Exception($"Error fetching user: {ex.Message}");
             }
         }
 

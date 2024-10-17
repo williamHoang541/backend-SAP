@@ -12,6 +12,7 @@ namespace SWD.SAPelearning.Repository
         Task<User> Registration(RegisterDTO request);
         Task<User> CreateInstructor(CreateUserInstructorDTO request);
         Task<User> UpdateStudent(string id, UpdateUserStudentDTO user);
+        Task<User> GetUserByID(string id);
         Task<List<User>> SearchByName(string name);
         Task<User> UpdateIsOnlineLogout(string userID);
         Task<List<User>> GetStudentsByPrefix(string userIdPrefix);

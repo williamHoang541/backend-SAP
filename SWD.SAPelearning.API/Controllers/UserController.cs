@@ -141,6 +141,34 @@ namespace SWD.SAPelearning.API.Controllers
         }
 
         /// <summary>
+        /// getuserbyid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("get-by-id/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            try
+            {
+                var user = await this.user.GetUserByID(id);
+
+                // Check if the user was found
+                if (user == null)
+                {
+                    return NotFound($"User with ID '{id}' not found.");
+                }
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// search-by-name
         /// </summary>
         /// <param name="user"></param>

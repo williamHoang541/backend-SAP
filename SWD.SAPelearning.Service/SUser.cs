@@ -11,6 +11,7 @@ using SWD.SAPelearning.Repository.DTO;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Text.RegularExpressions;
 
 namespace SAPelearning_bakend.Repositories.Services
 {
@@ -252,22 +253,35 @@ namespace SAPelearning_bakend.Repositories.Services
                 var r = new User();
                 if (request != null)
                 {
+                    // Email validation using a regular expression
+                    var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                    if (!emailRegex.IsMatch(request.Email))
+                    {
+                        throw new Exception("Invalid email format.");
+                    }
+
+                    // Check if the email already exists
                     foreach (var x in this.context.Users)
                     {
-                        if (request.Username.Equals(x.Username))
+                        if (request.Email.Equals(x.Email))
                         {
-                            throw new Exception("UserName has been existted!");
+                            throw new Exception("Email has already been registered!");
                         }
                     }
+
+                    // Generate user ID and set other properties
                     r.Id = "S" + Guid.NewGuid().ToString().Substring(0, 5);
-                    r.Username = request.Username;
+                    r.Email = request.Email;
                     r.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
                     r.RegistrationDate = DateTime.Now;
                     r.Role = "student";
-                    r.LastLogin= DateTime.Now;
+                    r.LastLogin = DateTime.Now;
                     r.IsOnline = true;
+
+                    // Save the user to the database
                     await this.context.Users.AddAsync(r);
                     await this.context.SaveChangesAsync();
+
                     return r;
                 }
                 return null;
@@ -278,6 +292,7 @@ namespace SAPelearning_bakend.Repositories.Services
                 throw new Exception(errorMessage);
             }
         }
+
 
         public async Task<User> CreateInstructor(CreateUserInstructorDTO request)
         {

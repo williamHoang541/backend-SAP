@@ -14,78 +14,69 @@ namespace SWD.SAPelearning.Service
 {
     public class SAuth : IAuth
     {
-        private readonly IConfiguration _configuration;
+        private readonly IUser _userRepository; // Repository để quản lý người dùng
+        private readonly IConfiguration _configuration;   // Để lấy thông tin cấu hình JWT
 
-        public SAuth(IConfiguration configuration)
+        public SAuth(IUser userRepository, IConfiguration configuration)
         {
+            _userRepository = userRepository;
             _configuration = configuration;
         }
 
-        // Xử lý đăng nhập với Google và trả về thông tin người dùng
-        public async Task<UserInfoDTO> HandleGoogleLoginAsync(string idToken)
+        // Kiểm tra xem tài khoản có tồn tại hay không qua email
+        public async Task<bool> CheckAccountByEmail(string email)
         {
-            try
-            {
-                // Xác thực token từ Google và lấy thông tin người dùng
-                var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
-
-                // Tạo đối tượng UserInfoDTO để trả về thông tin người dùng
-                var userInfo = new UserInfoDTO
-                {
-                    Email = payload.Email,
-                    Fullname = payload.Name,
-                    
-                };
-
-                return userInfo;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Invalid Google Token: " + ex.Message);
-            }
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            return user != null;
         }
 
-        // Lấy thông tin người dùng từ Google (nếu cần)
-        public async Task<User> GetUserInfoFromGoogleAsync()
+        // Tạo JWT token trực tiếp trong phương thức này
+        public async Task<string> CreateTokenByEmail(string email)
         {
-            // Ví dụ cách lấy thông tin người dùng từ Google bằng token ID
-            var payload = await GoogleJsonWebSignature.ValidateAsync("google-id-token");
-
-            if (payload == null)
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            if (user == null)
             {
-                throw new Exception("Invalid Google token");
+                return null;
             }
 
-            var userInfo = new User
-            {
-                Fullname = payload.Name,
-                Email = payload.Email,
-                Phonenumber = payload.Email // Có thể thay thế bằng số điện thoại nếu có
-            };
-
-            return userInfo;
-        }
-
-        // Tạo JWT Token
-        public string GenerateJwtToken(string email)
-        {
+            // Tạo token bằng cách sử dụng JWT
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]); // Khóa bí mật từ file cấu hình
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
+                Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Fullname)
                 }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"]
+                Expires = DateTime.UtcNow.AddHours(1), // Token sẽ hết hạn sau 1 giờ
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return tokenHandler.WriteToken(token); // Trả về token đã mã hóa
+        }
+
+        // Tạo tài khoản người dùng mới nếu chưa có tài khoản
+        public async Task<User> CreateNewUserAccountByGoogle(string email, string name)
+        {
+            var existingUser = await _userRepository.GetUserByEmailAsync(email);
+            if (existingUser != null)
+            {
+                return null; // Nếu đã có tài khoản, trả về null
+            }
+
+            // Tạo tài khoản người dùng mới
+            var newUser = new User
+            {
+                Email = email,
+                Fullname = name,
+                RegistrationDate = DateTime.UtcNow
+            };
+
+            await _userRepository.CreateUserAsync(newUser); // Lưu vào cơ sở dữ liệu
+            return newUser;
         }
     }
 }

@@ -1,63 +1,148 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Mvc;
 using SWD.SAPelearning.Repository;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace SWD.SAPelearning.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuth _authService;
+        private readonly IAuth _auth;
 
-        public AuthController(IAuth authService)
+        public AuthController(IAuth auth)
         {
-            _authService = authService;
+            _auth = auth;
         }
 
-        // Endpoint đăng nhập bằng Google
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] string idToken)
+        // Google Sign-In
+        [HttpGet("google-auth/signin")]
+        public IActionResult GoogleSignIn()
         {
-            if (string.IsNullOrEmpty(idToken))
+            var props = new AuthenticationProperties
             {
-                return BadRequest(new { message = "Google token is required" });
-            }
+                RedirectUri = Url.Action("api/auth/google-auth/signin")
+            };
+            return Challenge(props, GoogleDefaults.AuthenticationScheme);
+        }
 
-            try
+        // Callback after Google Sign-In
+        [HttpGet("google-auth/signin-callback")]
+        public async Task<IActionResult> GoogleSignInCallback()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (!result.Succeeded || result.Principal == null)
             {
-                // Xử lý đăng nhập Google với token và lấy thông tin người dùng
-                var userInfo = await _authService.HandleGoogleLoginAsync(idToken);
-
-                // Tạo JWT token sau khi xác thực thành công
-                var jwtToken = _authService.GenerateJwtToken(userInfo.Email);
-
-                // Trả về thông tin người dùng và JWT token
-                return Ok(new
+                return Unauthorized(new
                 {
-                    UserInfo = userInfo,
-                    Token = jwtToken
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Code = "FAILURE",
+                    Message = "Google authentication failed"
                 });
             }
-            catch (Exception ex)
+
+            var claims = result.Principal.Claims;
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+            if (string.IsNullOrEmpty(email))
             {
-                return Unauthorized(new { message = "Login failed: " + ex.Message });
+                return BadRequest("Email not found.");
             }
+
+            // Check if user exists by email
+            var userExists = await _auth.CheckAccountByEmail(email);
+            if (!userExists)
+            {
+                return Unauthorized(new
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Code = "FAILURE",
+                    Message = "Account not found. Please sign up first."
+                });
+            }
+
+            // Generate token for existing user
+            var token = await _auth.CreateTokenByEmail(email);
+
+            return Ok(new
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Code = "SUCCESS",
+                Data = new
+                {
+                    Email = email,
+                    Token = token
+                }
+            });
         }
 
-        // Endpoint lấy thông tin người dùng
-        [HttpGet("user-info")]
-        public async Task<IActionResult> GetUserInfo()
+        // Google Sign-Up
+        [HttpGet("google-auth/signup")]
+        public IActionResult GoogleSignUp()
         {
-            try
+            var props = new AuthenticationProperties
             {
-                var userInfo = await _authService.GetUserInfoFromGoogleAsync();
-                return Ok(userInfo);
-            }
-            catch (Exception ex)
+                RedirectUri = Url.Action("api/auth/google-auth/signup")
+            };
+            return Challenge(props, GoogleDefaults.AuthenticationScheme);
+        }
+
+        // Callback after Google Sign-Up
+        [HttpGet("google-auth/signup-callback")]
+        public async Task<IActionResult> GoogleSignUpCallback()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (!result.Succeeded || result.Principal == null)
             {
-                return BadRequest(new { message = ex.Message });
+                return Unauthorized(new
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Code = "FAILURE",
+                    Message = "Google authentication failed"
+                });
             }
+
+            var claims = result.Principal.Claims;
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var name = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email not found.");
+            }
+
+            // Check if user already exists
+            var userExists = await _auth.CheckAccountByEmail(email);
+            if (userExists)
+            {
+                return BadRequest("User already exists. Please sign in.");
+            }
+
+            // Create new account
+            var createUser = await _auth.CreateNewUserAccountByGoogle(email, name);
+            if (createUser == null)
+            {
+                return Problem("Failed to create account.");
+            }
+
+            // Generate token for the new user
+            var token = await _auth.CreateTokenByEmail(email);
+
+            return Ok(new
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Code = "SUCCESS",
+                Data = new
+                {
+                    Email = email,
+                    Token = token
+                }
+            });
         }
     }
 }

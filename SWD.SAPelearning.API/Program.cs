@@ -10,6 +10,7 @@ using SWD.SAPelearning.Services;
 using System.Text;
 using SAPelearning_bakend.Repositories.Services;
 using SWD.SAPelearning.Service;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -104,13 +105,17 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie()
+.AddCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+})
 .AddGoogle(options =>
 {
     IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
     options.ClientId = googleAuthNSection["ClientId"];
     options.ClientSecret = googleAuthNSection["ClientSecret"];
-    options.CallbackPath = "/signin-google";
+    options.CallbackPath = "/api/auth/google-auth/signin-callback";
 });
 
 // Enable Swagger only in Development and Production environments
@@ -136,9 +141,9 @@ app.UseHttpsRedirection();
 
 app.UseCors("MyCors");
 
-app.UseAuthentication();  // Authentication middleware
+app.UseAuthentication();
 
-app.UseAuthorization();   // Authorization middleware
+app.UseAuthorization();
 
 app.UseSwagger();
 

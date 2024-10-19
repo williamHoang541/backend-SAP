@@ -6,13 +6,8 @@ namespace SWD.SAPelearning.Repository
 {
     public interface IAuth
     {
-        // Xử lý đăng nhập với Google và trả về thông tin người dùng
-        Task<UserInfoDTO> HandleGoogleLoginAsync(string idToken);
-
-        // Lấy thông tin người dùng từ Google
-        Task<User> GetUserInfoFromGoogleAsync();
-
-        // Tạo JWT Token từ email
-        string GenerateJwtToken(string email);
+        Task<bool> CheckAccountByEmail(string email);
+        Task<string> CreateTokenByEmail(string email);
+        Task<User> CreateNewUserAccountByGoogle(string email, string name);
     }
 }

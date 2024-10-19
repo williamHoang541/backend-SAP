@@ -560,5 +560,15 @@ namespace SAPelearning_bakend.Repositories.Services
             }
         }
 
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task CreateUserAsync(User user)
+        {
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
+        }
     }
 }

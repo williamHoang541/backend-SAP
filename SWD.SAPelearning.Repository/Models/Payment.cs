@@ -9,7 +9,7 @@ namespace SWD.SAPelearning.Repository.Models
         public int? EnrollmentId { get; set; }
         public double? Amount { get; set; }
         public DateTime? PaymentDate { get; set; }
-        public int? TransactionId { get; set; }
+        public string? TransactionId { get; set; }
         public string? Status { get; set; }
 
         public virtual Enrollment? Enrollment { get; set; }

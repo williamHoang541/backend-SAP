@@ -19,66 +19,154 @@ namespace SAPelearning_bakend.Repositories.Services
         }
 
 
-        public async Task<List<Payment>> GetAllPayment()
+        public async Task<Payment> createPayment(string EnrollmentId)
         {
             try
             {
-                var a = await this.context.Payments.ToListAsync();
-                return a;
+                var order = await this.context.Enrollments
+                                .Where(x => x.Id.Equals(EnrollmentId))
+                                .FirstOrDefaultAsync();
+                if (order != null)
+                {
+                    var payment = new Payment
+                    {
+                        EnrollmentId = order.Id,
+                        Amount = order.Price, // Assuming 'Total' is a property in 'Enrollment'
+                        PaymentDate = DateTime.Now,
+                        Status = "Pending"  // Sử dụng trạng thái dưới dạng chuỗi
+                    };
+
+                    await this.context.Payments.AddAsync(payment);
+                    await this.context.SaveChangesAsync();
+                    return payment;
+                }
+                return null;
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        public async Task<Payment> DeletePayment(string paymentID)
+        {
+            try
+            {
+                if (paymentID != null)
+                {
+                    var obj = await this.context.Payments
+                                    .Where(x => x.Id.Equals(paymentID))
+                                    .FirstOrDefaultAsync();
+                    if (obj != null)
+                    {
+                        obj.Status = "Cancelled"; // Cập nhật trạng thái thành hủy
+                        this.context.Payments.Update(obj);
+                        await this.context.SaveChangesAsync();
+                        return obj;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
                 throw new Exception($"{ex.Message}");
             }
         }
 
-        public async Task<Payment> CreatePayment(string enrollmentId)
+        public async Task<bool> DeletePaymentComplete(string paymentID)
         {
-            // Find the enrollment related to the given enrollmentId
-            var enrollment = await context.Enrollments.FindAsync(Convert.ToInt32(enrollmentId));
-
-            if (enrollment == null)
+            try
             {
-                throw new Exception("Enrollment not found.");
+                if (paymentID != null)
+                {
+                    var obj = await this.context.Payments
+                                    .Where(x => x.Id.Equals(paymentID))
+                                    .FirstOrDefaultAsync();
+                    if (obj != null)
+                    {
+                        this.context.Payments.Remove(obj);
+                        await this.context.SaveChangesAsync();
+                        return true;
+                    }
+                }
+                return false;
             }
-
-            // Create a new payment
-            var payment = new Payment
+            catch (Exception ex)
             {
-                EnrollmentId = enrollment.Id,
-                Amount = enrollment.Course.Price, // Assuming the amount is based on course price
-                PaymentDate = DateTime.Now,
-                TransactionId = new Random().Next(10000, 99999), // You may have a method to generate this
-                Status = "Pending" // Or another default status
-            };
-
-            // Add payment to the context
-            context.Payments.Add(payment);
-
-            // Save changes to the database
-            await context.SaveChangesAsync();
-
-            return payment;
+                throw new Exception($"{ex.Message}");
+            }
         }
 
-        public async Task<Payment> GetPaymentById(int id)
+        public async Task<Payment> GetPayment(string EnrollmentId)
         {
-            // Use FindAsync to retrieve the payment by its ID
-            var payment = await context.Payments.FindAsync(id);
-
-            // Return the payment if found, otherwise null
-            return payment;
+            try
+            {
+                var payment = await this.context.Payments
+                                    .Where(x => x.Enrollment.Id.Equals(EnrollmentId))
+                                    .FirstOrDefaultAsync();
+                return payment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public async Task<List<Payment>> GetPaymentsByEnrollmentId(int enrollmentId)
+        public async Task<Payment> GetPaymentFail(string EnrollmentId)
         {
-            // Use Where to filter payments by EnrollmentId
-            var payments = await context.Payments
-                .Where(p => p.EnrollmentId == enrollmentId)
-                .ToListAsync(); // Retrieve the list of payments
+            try
+            {
+                var payment = await this.context.Payments
+                                    .Where(x => x.Enrollment.Id.Equals(EnrollmentId) && x.Status == "Failed")
+                                    .FirstOrDefaultAsync();
+                return payment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-            return payments; // Return the list of payments found
+        public async Task<Payment> GetPaymentSuccess(string EnrollmentId)
+        {
+            try
+            {
+                var payment = await this.context.Payments
+                                    .Where(x => x.Enrollment.Id.Equals(EnrollmentId) && x.Status == "Completed")
+                                    .FirstOrDefaultAsync();
+                return payment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        public async Task<Payment> UpdatePayment(string id)
+        {
+            try
+            {
+                var payment = await context.Payments.FindAsync(id);
+
+                if (payment == null)
+                {
+                    throw new Exception($"Payment with ID {id} not found.");
+                }
+
+                // Cập nhật thuộc tính
+                payment.Status = "Completed"; // Giả sử trạng thái thành công là "Completed"
+
+                // Lưu thay đổi vào cơ sở dữ liệu
+                context.Payments.Update(payment);
+                await context.SaveChangesAsync();
+
+                return payment;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occurred while updating the payment.", e);
+            }
         }
     }
 }
